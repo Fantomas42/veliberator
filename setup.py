@@ -1,26 +1,35 @@
+"""Installing veliberator"""
 from setuptools import setup, find_packages
 import sys, os
 
 version = '0.1'
 
-setup(name='veliberator',
-      version=version,
-      description="Python API for Velib.",
-      long_description="""Veliberator provides an API for getting informations
-about the stations of the Velib city network""",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-      keywords='api, velib, service',
-      author='Fantomas42',
-      author_email='fantomas42@gmail.com',
-      url='http://veliberator.com',
-      license='GPL',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=[
-          # -*- Extra requirements: -*-
-      ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
-      )
+setup(
+    name='veliberator',
+    version=version,
+    zip_safe=True,
+
+    scripts=['./bin/find_place.py',
+             './bin/synchronize.py'],
+    packages=find_packages(exclude=['tests',]),
+    install_requires = ['SQLAlchemy>=0.5',
+                        'Elixir>=0.6.1',],
+    test_suite = 'tests.global_test_suite',
+
+    author='Fantomas42',
+    author_email='fantomas42@gmail.com',
+    url='http://fantomas.willbreak.it',
+ 
+    license='GPL',
+    platforms = 'any',
+    description="Python API for Velib.",
+    long_description=open(os.path.join("docs", "README.txt")).read(),
+    keywords='velib, api, service',
+    classifiers=[
+        "Development Status :: 0.1 - Beta",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        ],
+    )
