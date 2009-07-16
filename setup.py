@@ -26,7 +26,7 @@ setup(
     long_description=open(os.path.join("docs", "README.txt")).read(),
     keywords='velib, api, service',
     classifiers=[
-        "Development Status :: 0.1 - Beta",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
