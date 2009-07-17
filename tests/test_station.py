@@ -4,7 +4,7 @@ import unittest
 from veliberator.settings import TEST_XML_CARTOGRAPHY
 from veliberator.station import UnknowStation, Station
 from veliberator.models import StationInformation
-from veliberator.cartography import Cartography
+from veliberator import Cartography
 
 class StationTestCase(unittest.TestCase):
 

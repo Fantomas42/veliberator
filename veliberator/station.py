@@ -1,8 +1,10 @@
 """Station objects for veliberator"""
 from math import sqrt
 from urllib import urlopen
+from datetime import datetime
 from xml.dom.minidom import parse
 
+from veliberator.models import db_connection
 from veliberator.models import StationInformation
 from veliberator.settings import VELIB_STATUS_XML_URL
 from veliberator.xml_wrappers import xml_station_status_wrapper
@@ -16,7 +18,12 @@ class Station(object):
     def __init__(self, velib_id):
         self.id = int(velib_id)
         self.status = None
-        self.informations = StationInformation.get(self.id)
+
+        try:
+            self.informations = StationInformation.get(self.id)
+        except AttributeError:
+            db_connection()
+            self.informations = StationInformation.get(self.id)
 
         if not self.informations:
             raise UnknowStation('The Station ID does not exist.')
@@ -29,16 +36,7 @@ class Station(object):
     def get_status(self):
         dom = parse(urlopen(VELIB_STATUS_XML_URL % self.id))        
         self.status = xml_station_status_wrapper(dom.firstChild)
-
-    def show_status(self):
-        if not self.status:
-            self.get_status()
-        print "Station '%s'" % self.id
-        print '%s, %s %s' % (self.informations.address,
-                             self.informations.postal_code,
-                             self.informations.city)
-        print '%s/%s velo(s) disponible' % (self.status['available'], self.status['total'])
-        print '%s place(s) disponible' % self.status['free']
+        self.status['datetime'] = datetime.now()
 
     def compute_distances(self, stations):
         distances = {}
