@@ -1,16 +1,28 @@
 """Station objects for veliberator"""
 from math import sqrt
 from urllib import urlopen
-from datetime import datetime
+from datetime import datetime, timedelta
 from xml.dom.minidom import parse
 
 from veliberator.models import db_connection
 from veliberator.models import StationInformation
 from veliberator.settings import VELIB_STATUS_XML_URL
+from veliberator.settings import STATION_STATUS_RECENT
 from veliberator.xml_wrappers import xml_station_status_wrapper
 
 class UnknowStation(Exception):
     pass
+
+def require_recent_status(meth):
+    """Decorator for updating the status of a station"""
+    def wrapper(self, *args, **kwargs):
+        if not self.status:
+            self.get_status()
+        if self.status['datetime'] + \
+               timedelta(minutes=STATION_STATUS_RECENT) < datetime.now():
+            self.get_status()
+        return meth(self, *args, **kwargs)    
+    return wrapper
 
 class Station(object):
     """Station object"""
@@ -27,6 +39,28 @@ class Station(object):
 
         if not self.informations:
             raise UnknowStation('The Station ID does not exist.')
+
+    @property
+    def is_open(self):
+        return self.informations.opened
+
+    @property
+    def is_bonus(self):
+        return self.informations.bonus
+
+    @property
+    def address(self):
+        return '%s, %s %s' % (self.informations.address,
+                              self.informations.postal_code,
+                              self.informations.city)
+
+    @require_recent_status
+    def is_free(self, places=1):        
+        return self.is_open and self.status['free'] >= places
+
+    @require_recent_status
+    def is_available(self, places=1):
+        return self.is_open and self.status['available'] >= places
 
     def __repr__(self):
         if self.informations:
@@ -77,4 +111,5 @@ class Station(object):
         stations_id = [station.id for station, distance in station_distances_ordered]
         
         return stations_id[:number]
-        
+
+

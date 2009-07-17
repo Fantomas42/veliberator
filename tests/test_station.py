@@ -11,7 +11,8 @@ class StationTestCase(unittest.TestCase):
     def setUp(self):
         self.velib_id = 42008
         self.informations = StationInformation(id=self.velib_id,
-                                               address='Test')
+                                               address='Test',
+                                               bonus=True, opened=True)
         self.informations.save()
 
     def tearDown(self):
@@ -26,7 +27,27 @@ class StationTestCase(unittest.TestCase):
         self.assertTrue(isinstance(station.informations, StationInformation))
         station = Station(str(self.velib_id))
         self.assertTrue(isinstance(station.informations, StationInformation))
-        
+
+    def test_Properties(self):
+        station = Station(self.velib_id)
+        self.assertTrue(station.is_open == station.informations.opened)
+        self.assertTrue(station.is_bonus == station.informations.bonus)
+
+    def test_IsFree(self):
+        station = Station(self.velib_id)
+        station.get_status()
+        station.status['free'] = 5
+        self.assertTrue(station.is_free())
+        self.assertTrue(station.is_free(4))
+        self.assertFalse(station.is_free(7))
+
+    def test_IsAvailable(self):
+        station = Station(self.velib_id)
+        station.get_status()
+        station.status['available'] = 5
+        self.assertTrue(station.is_available())
+        self.assertTrue(station.is_available(4))
+        self.assertFalse(station.is_available(7))
 
     def test_GetStatus(self):
         station = Station(self.velib_id)
