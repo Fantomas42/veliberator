@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.1'
+version = '0.1.2'
 
 setup(
     name='veliberator',
@@ -14,6 +14,8 @@ setup(
     packages=find_packages(exclude=['tests',]),
     install_requires = ['SQLAlchemy>=0.5',
                         'Elixir>=0.6.1',],
+    include_package_data=True,
+        
     test_suite = 'tests.global_test_suite',
 
     author='Fantomas42',
