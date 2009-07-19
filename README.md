@@ -43,14 +43,14 @@ The informations attributes contains many data such as :
 * opened *(boolean who told if the station is open)*
 * bonus *(boolean who told if the station is a bonus station)*
 
-You could retrieve the live status of the station easily : ::
+You could retrieve the live status of the station easily :
 
     >>> station.status
     >>> station.get_status()
     >>> station.status
     {'available': 24, 'ticket': True, 'total': 25, 'free': 0, 'datetime': datetime.datetime(2009, 7, 17, 12, 00, 00, 000000)}
   
-And we can retrieve the station ids around our station by distance : ::
+And we can retrieve the station ids around our station by distance :
 
     >>> station.get_stations_around()
     [42006, 42010, 42012, 42014, 42016]

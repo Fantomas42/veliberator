@@ -24,14 +24,14 @@ setup(
  
     license='GPL',
     platforms = 'any',
-    description="Python API for Velib.",
-    long_description=open(os.path.join("docs", "README.txt")).read(),
+    description='Python API for Velib.',
+    long_description=open(os.path.join('docs', 'README.txt')).read(),
     keywords='velib, api, service',
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         ],
     )
