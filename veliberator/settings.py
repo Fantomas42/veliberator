@@ -1,11 +1,19 @@
 """Settings for Veliberator"""
+import os
+from ConfigParser import SafeConfigParser
+from ConfigParser import NoSectionError, NoOptionError
 
-VELIB_DATA_XML_URL = 'http://www.velib.paris.fr/service/carto'
-VELIB_STATUS_XML_URL = 'http://www.velib.paris.fr/service/stationdetails/%s'
+config = SafeConfigParser()
+config.read(['veliberator.cfg', os.path.expanduser('~/.veliberator.cfg')])
 
-STATION_STATUS_RECENT = 10
 
-DATABASE_URI = 'sqlite:///db.sqlite'
-DATABASE_ECHO = False
+XML_URL_DATA_STATION = config.get('XML', 'url_data_station')
+XML_URL_STATUS_STATION = config.get('XML', 'url_status_station')
 
-TEST_XML_CARTOGRAPHY = 'tests/data/carto_short.xml'
+STATION_STATUS_RECENT = config.getint('STATION', 'status_recent')
+
+DATABASE_URI = config.get('DATABASE', 'uri')
+DATABASE_ECHO = config.getboolean('DATABASE', 'echo')
+
+TEST_XML_URL_DATA_STATION = config.get('TEST', 'url_data_station')
+

@@ -1,7 +1,7 @@
 """Unit tests for Station object"""
 import unittest
 
-from veliberator.settings import TEST_XML_CARTOGRAPHY
+from veliberator.settings import TEST_XML_URL_DATA_STATION
 from veliberator.station import UnknowStation, Station
 from veliberator.models import StationInformation
 from veliberator import Cartography
@@ -69,7 +69,7 @@ class StationTestCase(unittest.TestCase):
         self.assertEquals(result, {si: 5.0})
 
     def test_GetStationsAround(self):
-        Cartography.synchronize(TEST_XML_CARTOGRAPHY)
+        Cartography.synchronize(TEST_XML_URL_DATA_STATION)
         
         station = Station(self.velib_id)
 

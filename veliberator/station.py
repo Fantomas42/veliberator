@@ -6,8 +6,8 @@ from xml.dom.minidom import parse
 
 from veliberator.models import db_connection
 from veliberator.models import StationInformation
-from veliberator.settings import VELIB_STATUS_XML_URL
 from veliberator.settings import STATION_STATUS_RECENT
+from veliberator.settings import XML_URL_STATUS_STATION
 from veliberator.xml_wrappers import xml_station_status_wrapper
 
 class UnknowStation(Exception):
@@ -68,7 +68,7 @@ class Station(object):
         return '<Station "%s">' % self.id
         
     def get_status(self):
-        dom = parse(urlopen(VELIB_STATUS_XML_URL % self.id))        
+        dom = parse(urlopen(XML_URL_STATUS_STATION + str(self.id)))        
         self.status = xml_station_status_wrapper(dom.firstChild)
         self.status['datetime'] = datetime.now()
 
