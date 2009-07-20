@@ -4,7 +4,9 @@ from ConfigParser import SafeConfigParser
 from ConfigParser import NoSectionError, NoOptionError
 
 config = SafeConfigParser()
-config.read(['veliberator.cfg', os.path.expanduser('~/.veliberator.cfg')])
+config.read(['veliberator.cfg',
+             os.path.join('etc', 'veliberator.cfg'),
+             os.path.expanduser('~/.veliberator.cfg')])
 
 
 XML_URL_DATA_STATION = config.get('XML', 'url_data_station')

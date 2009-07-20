@@ -63,3 +63,9 @@ And we can retrieve the station ids around our station by distance : ::
 
 Other methods on the Station objects are available, but the source is often more explicit.
 
+Settings
+========
+
+You can change the settings of the applications by creating a .veliberator.cfg 
+in your home directory, basing on the etc/veliberator.cfg.
+

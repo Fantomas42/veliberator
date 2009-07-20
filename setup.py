@@ -11,6 +11,8 @@ setup(
 
     scripts=['./bin/find_place.py',
              './bin/synchronize.py'],
+    data_files=[('etc', ['etc/veliberator.cfg']),],
+
     packages=find_packages(exclude=['tests',]),
     install_requires = ['SQLAlchemy>=0.5',
                         'Elixir>=0.6.1',],
