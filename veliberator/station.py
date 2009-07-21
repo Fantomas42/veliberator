@@ -33,12 +33,6 @@ class Station(object):
     def is_bonus(self):
         return self.informations.bonus
 
-    @property
-    def address(self):
-        return '%s, %s %s' % (self.informations.address,
-                              self.informations.postal_code,
-                              self.informations.city)
-
     def is_free(self, places=1):        
         return self.is_open and self.status.free >= places
 

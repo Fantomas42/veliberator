@@ -28,6 +28,11 @@ class StationInformation(Entity):
     def __repr__(self):
         return '<StationInformation "%s" (%s)>' % (self.id, self.address)
 
+    def address(self):
+        return '%s, %s %s' % (self.address,
+                              self.postal_code,
+                              self.city)
+
 
 def db_connection(sqluri=DATABASE_URI, echo=DATABASE_ECHO):
     metadata.bind = sqluri
