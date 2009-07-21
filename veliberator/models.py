@@ -28,6 +28,7 @@ class StationInformation(Entity):
     def __repr__(self):
         return '<StationInformation "%s" (%s)>' % (self.id, self.address)
 
+    @property
     def address(self):
         return '%s, %s %s' % (self.address,
                               self.postal_code,
