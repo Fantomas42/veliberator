@@ -10,7 +10,7 @@ from veliberator.models import db_connection
 
 def show_status(station):
     print "Station '%s'" % station.id
-    print station.address
+    print station.informations.full_address
     print '%s/%s velo(s) disponible' % (station.status.available, station.status.total)
     print '%s place(s) disponible' % station.status.free
 

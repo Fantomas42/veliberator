@@ -29,7 +29,7 @@ class StationInformation(Entity):
         return '<StationInformation "%s" (%s)>' % (self.id, self.address)
 
     @property
-    def address(self):
+    def full_address(self):
         return '%s, %s %s' % (self.address,
                               self.postal_code,
                               self.city)
