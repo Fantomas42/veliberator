@@ -35,26 +35,17 @@ class StationTestCase(unittest.TestCase):
 
     def test_IsFree(self):
         station = Station(self.velib_id)
-        station.get_status()
-        station.status['free'] = 5
+        station.status.status['free'] = 5
         self.assertTrue(station.is_free())
         self.assertTrue(station.is_free(4))
         self.assertFalse(station.is_free(7))
 
     def test_IsAvailable(self):
         station = Station(self.velib_id)
-        station.get_status()
-        station.status['available'] = 5
+        station.status.status['available'] = 5
         self.assertTrue(station.is_available())
         self.assertTrue(station.is_available(4))
         self.assertFalse(station.is_available(7))
-
-    def test_GetStatus(self):
-        station = Station(self.velib_id)
-        self.assertEquals(station.status, None)
-
-        station.get_status()
-        self.assertTrue(isinstance(station.status, dict))
 
     def test_ComputeDistances(self):
         station = Station(self.velib_id)

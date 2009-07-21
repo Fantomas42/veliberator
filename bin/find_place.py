@@ -11,8 +11,8 @@ from veliberator.models import db_connection
 def show_status(station):
     print "Station '%s'" % station.id
     print station.address
-    print '%s/%s velo(s) disponible' % (station.status['available'], station.status['total'])
-    print '%s place(s) disponible' % station.status['free']
+    print '%s/%s velo(s) disponible' % (station.status.available, station.status.total)
+    print '%s place(s) disponible' % station.status.free
 
 
 if __name__ == '__main__':   
@@ -28,7 +28,6 @@ if __name__ == '__main__':
     db_connection(options.database)
     
     station = Station(args[0])
-    station.get_status()
     show_status(station)
                         
     if not station.is_free(options.place):

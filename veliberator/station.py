@@ -1,36 +1,19 @@
 """Station objects for veliberator"""
 from math import sqrt
-from urllib import urlopen
-from datetime import datetime, timedelta
 from xml.dom.minidom import parse
 
 from veliberator.models import db_connection
 from veliberator.models import StationInformation
-from veliberator.settings import STATION_STATUS_RECENT
-from veliberator.settings import XML_URL_STATUS_STATION
-from veliberator.xml_wrappers import xml_station_status_wrapper
+from veliberator.status import StationStatus
 
 class UnknowStation(Exception):
     pass
-
-def require_recent_status(meth):
-    """Decorator for updating the status of a station"""
-    def wrapper(self, *args, **kwargs):
-        if not self.status:
-            self.get_status()
-        if self.status['datetime'] + \
-               timedelta(minutes=STATION_STATUS_RECENT) < datetime.now():
-            self.get_status()
-        return meth(self, *args, **kwargs)    
-    return wrapper
 
 class Station(object):
     """Station object"""
 
     def __init__(self, velib_id):
         self.id = int(velib_id)
-        self.status = None
-
         try:
             self.informations = StationInformation.get(self.id)
         except AttributeError:
@@ -39,6 +22,8 @@ class Station(object):
 
         if not self.informations:
             raise UnknowStation('The Station ID does not exist.')
+
+        self.status = StationStatus(self.id)
 
     @property
     def is_open(self):
@@ -54,24 +39,17 @@ class Station(object):
                               self.informations.postal_code,
                               self.informations.city)
 
-    @require_recent_status
     def is_free(self, places=1):        
-        return self.is_open and self.status['free'] >= places
+        return self.is_open and self.status.free >= places
 
-    @require_recent_status
     def is_available(self, places=1):
-        return self.is_open and self.status['available'] >= places
+        return self.is_open and self.status.available >= places
 
     def __repr__(self):
         if self.informations:
             return '<Station "%s" (%s)>' % (self.id, self.informations.address)
         return '<Station "%s">' % self.id
         
-    def get_status(self):
-        dom = parse(urlopen(XML_URL_STATUS_STATION + str(self.id)))        
-        self.status = xml_station_status_wrapper(dom.firstChild)
-        self.status['datetime'] = datetime.now()
-
     def compute_distances(self, stations):
         distances = {}
 
