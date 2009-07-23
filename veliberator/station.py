@@ -58,9 +58,8 @@ class Station(object):
             return '<Station "%s" (%s)>' % (self.id, self.informations.address)
         return '<Station "%s">' % self.id
 
-    def get_stations_around(self, number=5):
+    def get_stations_around(self):
         """Find the stations around"""
-        stations_id = self.finder.get_stations_around()
-        return stations_id[:number]
+        return self.finder.get_stations_around()
 
 
