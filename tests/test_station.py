@@ -47,18 +47,6 @@ class StationTestCase(unittest.TestCase):
         self.assertTrue(station.is_available(4))
         self.assertFalse(station.is_available(7))
 
-    def test_ComputeDistances(self):
-        station = Station(self.velib_id)
-        result = station.compute_distances([station.informations])
-        self.assertEquals(result, {})
-
-        station.informations.lat = 1
-        station.informations.lng = 1
-        si = StationInformation(id=42, lat=4, lng=5)
-        
-        result = station.compute_distances([si])
-        self.assertEquals(result, {si: 5.0})
-
     def test_GetStationsAround(self):
         Cartography.synchronize(TEST_XML_URL_DATA_STATION)
         
