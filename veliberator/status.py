@@ -7,7 +7,22 @@ from veliberator.settings import STATION_STATUS_RECENT
 from veliberator.settings import XML_URL_STATUS_STATION
 from veliberator.xml_wrappers import xml_station_status_wrapper
 
-global_station_status = {}
+global_stationstatus_cache = {}
+
+def cache_wrapper(method):
+    def cache(instance):
+        """Use a timed cache for result, and set
+        the results into the instance"""
+        global global_stationstatus_cache
+        
+        key_cache = instance.velib_id
+        if not global_stationstatus_cache.has_key(key_cache) or \
+               global_stationstatus_cache[key_cache]['datetime'] + \
+               timedelta(minutes=STATION_STATUS_RECENT) < datetime.now():
+            global_stationstatus_cache[key_cache] = method(instance)
+        instance.status = global_stationstatus_cache[key_cache]
+        return instance.status
+    return cache
 
 class StationStatus(object):
     """Status of a station, by opening an url
@@ -15,35 +30,21 @@ class StationStatus(object):
     status = {}
 
     def __init__(self, velib_id, xml_url=XML_URL_STATUS_STATION):
+        """Init the status"""
         self.velib_id = velib_id
         self.xml_url = xml_url + str(self.velib_id)
         self.get_status()
 
+    @cache_wrapper
     def get_status(self):
-        if global_station_status.has_key(self.velib_id):
-            status = global_station_status[self.velib_id]
-
-            if status['datetime'] + \
-               timedelta(minutes=STATION_STATUS_RECENT) < datetime.now():
-                self.set_status()
-            else:
-                self.status = status
-        else:
-            self.set_status()
-
-    def set_status(self):
-        global global_station_status
-        self.status = self.get_status_xml()
-        global_station_status[self.velib_id] = self.status
-                
-    def get_status_xml(self):
+        """Get the status provided by an URL"""
         dom = parse(urlopen(self.xml_url))        
         status = xml_station_status_wrapper(dom.firstChild)
-        status['datetime'] = datetime.now()        
-
+        status['datetime'] = datetime.now()
         return status
 
     def __getattr__(self, name):
+        """Allow direct access to self.status items"""
         if self.status.has_key(name):
             return self.status.get(name)
         return getattr(self, name)
