@@ -58,6 +58,6 @@ Other methods on the Station objects are available, but the source is often more
 Settings
 ========
 
-You can change the settings of the applications by creating or editing the .veliberator.cfg 
-file in your home directory, basing on the etc/veliberator.cfg.
+You can change the settings of the applications by creating or editing the *.veliberator.cfg* 
+file in your home directory, basing on the *etc/veliberator.cfg*.
 
