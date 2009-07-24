@@ -53,13 +53,15 @@ class Station(object):
         has available places"""
         return self.is_open and self.status.available >= places
 
+    @property
+    def stations_around(self):
+        """Find the stations around"""
+        return self.finder.get_stations_around()
+
     def __repr__(self):
         if self.informations:
             return '<Station "%s" (%s)>' % (self.id, self.informations.address)
         return '<Station "%s">' % self.id
 
-    def get_stations_around(self):
-        """Find the stations around"""
-        return self.finder.get_stations_around()
 
 

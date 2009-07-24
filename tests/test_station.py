@@ -52,7 +52,7 @@ class StationTestCase(unittest.TestCase):
         
         station = Station(self.velib_id)
 
-        stations_around = station.get_stations_around()
+        stations_around = station.stations_around
         self.assertEquals(len(stations_around), 15)
 
         Cartography.flush()
