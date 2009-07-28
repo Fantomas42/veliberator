@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.1.9'
+version = '0.2.1'
 
 setup(
     name='veliberator',
@@ -11,7 +11,7 @@ setup(
 
     scripts=['./bin/find_place.py',
              './bin/synchronize.py'],
-    data_files=[('etc', ['etc/veliberator.cfg']),],
+    data_files=[('/etc', ['etc/veliberator.cfg']),],
 
     packages=find_packages(exclude=['tests',]),
     install_requires = ['SQLAlchemy>=0.5',
