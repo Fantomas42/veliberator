@@ -17,6 +17,9 @@ The packages provides few binaries to tests and to initialize the datas.
 
   A test script for finding free places to park a bike or the stations around.
 
+Note that you must run these commands as root until you have not configured 
+your own settings.
+
 Usage
 -----
 
@@ -59,5 +62,5 @@ Settings
 ========
 
 You can change the settings of the applications by creating or editing the *.veliberator.cfg* 
-file in your home directory, basing on the *etc/veliberator.cfg*.
+file in your home directory, basing on the */etc/veliberator.cfg*.
 
