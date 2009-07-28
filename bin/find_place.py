@@ -43,7 +43,7 @@ if __name__ == '__main__':
         show_status(station)
         if not station.is_free(options.places):
             print 'Calcul des places les plus proches...'
-            display_free_stations(station.get_stations_around()[:options.max_stations],
+            display_free_stations(station.stations_around[:options.max_stations],
                                   options.places)
     else:
         try:
