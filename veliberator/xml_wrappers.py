@@ -13,17 +13,17 @@ def xml_station_status_wrapper(xmlnode):
 def xml_station_information_wrapper(xmlnode):
     """Convert Station information xml
     to a usable dict"""
+    city = ''
+    postal_code = ''
+    address = xmlnode.getAttribute('address')[:-1].strip()
+    address_parts = xmlnode.getAttribute('fullAddress').split()
 
-    address_parts = xmlnode.getAttribute('fullAddress').split('-')
-    
-    address = address_parts[0].strip()
-    try:
-        postal_code = address_parts[1].strip().split(' ')[0]
-        city = ' '.join(address_parts[1].strip().split(' ')[1:])
-    except IndexError:
-        city = ''
-        postal_code = ''
-        
+    for p in address_parts:
+        if len(p) == 5 and p.isdigit():
+            postal_code = p
+            city = ' '.join(address_parts[address_parts.index(p) + 1:])
+            break
+
     return {'id': int(xmlnode.getAttribute('number')),
             'address': address,
             'postal_code': postal_code,

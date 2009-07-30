@@ -33,5 +33,20 @@ class XmlFuncTestCase(unittest.TestCase):
         
         self.assertEquals(xml_station_information_wrapper(xml.firstChild), data_reference)
 
+    def test_XmlStationInformationWrapperAdvanced(self):
+        data_reference = {'bonus': False, 'opened': True,
+                          'postal_code': u'94200', 'city': u'IVRY', 
+                          'address': u'157-165 AVENUE DE VERDUN',
+                          'lat': u'48.8067594749',
+                          'lng': u'2.37550404031',
+                          'id': 42009}
+
+        xml = parseString('<marker name="42009 - VERDUN (IVRY)" number="42009" ' \
+                          'address="157-165 AVENUE DE VERDUN -" ' \
+                          'fullAddress="157-165 AVENUE DE VERDUN - 94200 IVRY" ' \
+                          'lat="48.8067594749" lng="2.37550404031" open="1" bonus="0"/>')
+        
+        self.assertEquals(xml_station_information_wrapper(xml.firstChild), data_reference)
+
 
 suite = unittest.TestLoader().loadTestsFromTestCase(XmlFuncTestCase)
