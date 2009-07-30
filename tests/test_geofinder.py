@@ -104,8 +104,8 @@ class AddressGeoFinderTestCase(unittest.TestCase):
         address = '1 place de la Bastille, 75012 Paris'
         geofinder = AddressGeoFinder(address)
         self.assertEquals(geofinder.precision, 8)
-        self.assertEquals(geofinder.lat, '48.8530893')
-        self.assertEquals(geofinder.lng, '2.3687316')
+        self.assertEquals(geofinder.lat, '48.8530854')
+        self.assertEquals(geofinder.lng, '2.3687089')
 
         address = 'Bethune, 62400'
         self.assertRaises(GeoFinderError, AddressGeoFinder, address)
