@@ -2,6 +2,7 @@
 from urllib import urlopen
 from datetime import datetime, timedelta
 from xml.dom.minidom import parse
+from xml.parsers.expat import ExpatError
 
 from veliberator.settings import STATION_STATUS_RECENT
 from veliberator.settings import XML_URL_STATUS_STATION
@@ -38,8 +39,12 @@ class StationStatus(object):
     @cache_wrapper
     def get_status(self):
         """Get the status provided by an URL"""
-        dom = parse(urlopen(self.xml_url))        
-        status = xml_station_status_wrapper(dom.firstChild)
+        try:
+            dom = parse(urlopen(self.xml_url))        
+            status = xml_station_status_wrapper(dom.firstChild)
+        except ExpatError:
+            status = {'total': 0, 'available': 0,
+                      'free': 0, 'ticket': False}
         status['datetime'] = datetime.now()
         return status
 

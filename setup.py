@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2.2'
+version = '0.2.3'
 
 setup(
     name='veliberator',
@@ -22,7 +22,7 @@ setup(
 
     author='Fantomas42',
     author_email='fantomas42@gmail.com',
-    url='http://fantomas.willbreak.it',
+    url='http://veliberator.com',
  
     license='GPL',
     platforms = 'any',
