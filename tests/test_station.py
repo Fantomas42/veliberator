@@ -6,6 +6,9 @@ from veliberator.station import UnknowStation, Station
 from veliberator.models import StationInformation
 from veliberator import Cartography
 
+from veliberator.station import STATUS_OPEN, STATUS_CLOSE, STATUS_BONUS, \
+     STATUS_ERROR, STATUS_BIKE_ONLY, STATUS_PARKING_ONLY, STATUS_NO_SERVICE
+
 class StationTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -57,5 +60,29 @@ class StationTestCase(unittest.TestCase):
 
         Cartography.flush()
 
+    def test_State(self):
+        status = {'total': 25, 'available': 0,
+                  'free': 12, 'ticket': True}
 
+        station = Station(self.velib_id)
+        station.status.status = status
+
+        self.assertEquals(station.state, STATUS_PARKING_ONLY)
+        station.status.status['free'] = 0
+        station.status.status['available'] = 2
+        self.assertEquals(station.state, STATUS_BIKE_ONLY)
+        station.status.status['available'] = 0
+        self.assertEquals(station.state, STATUS_NO_SERVICE)
+        station.status.status['total'] = 0
+        self.assertEquals(station.state, STATUS_ERROR)
+        station.status.status['total'] = station.status.status['free'] = \
+                                         station.status.status['available'] = 10
+        
+        self.assertEquals(station.state, STATUS_BONUS)
+        station.informations.bonus = False
+        self.assertEquals(station.state, STATUS_OPEN)
+        station.informations.opened = False
+        self.assertEquals(station.state, STATUS_CLOSE)
+
+        
 suite = unittest.TestLoader().loadTestsFromTestCase(StationTestCase)

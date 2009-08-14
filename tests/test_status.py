@@ -38,8 +38,9 @@ class StationStatusTestCase(unittest.TestCase):
         status = StationStatus(self.velib_id)
         self.assertTrue(isinstance(status.get_status(), dict))
 
-    def test_GetStatusExpatError(self):
-        status = StationStatus(42005)
+    def test_GetStatusError(self):
+        status = StationStatus(self.velib_id)
+        status.velib_id = self.velib_id - 1
         status.xml_url = '.'
         self.assertTrue(isinstance(status.get_status(), dict))
         self.assertEquals(status.free, 0)
