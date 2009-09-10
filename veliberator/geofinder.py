@@ -29,6 +29,10 @@ class BaseGeoFinder(object):
     lat = None
     lng = None
 
+    def __init__(self, lat, lng):
+        self.lat = lat
+        self.lng = lng
+
     def compute_square_area(self):
         """Round the GPS coordonates to a wide area"""
         #to be refactored for configuring the area size
@@ -110,6 +114,7 @@ class AddressGeoFinder(BaseGeoFinder):
 
     def geocompute(self, address):
         """Geocompute an address with GMap"""
+        #need to change format, for more information
         address = quote_plus(address)
         request = "http://maps.google.com/maps/geo?sensor=false&q=%s&output=%s&oe=utf8&gl=fr" % (
             address, 'csv')
