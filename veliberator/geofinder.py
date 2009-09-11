@@ -35,9 +35,6 @@ class BaseGeoFinder(object):
         self.lat = lat
         self.lng = lng
 
-    #def r_geocompute(self):
-    #    http://maps.google.com/maps/geo?q=40.714224,-73.961452&output=json&oe=utf8&sensor=true_or_false&key=your_api_key
-
     def compute_square_area(self):
         """Round the GPS coordonates to a wide area"""
         #to be refactored for configuring the area size
