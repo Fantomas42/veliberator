@@ -14,9 +14,7 @@ from veliberator.settings import TEST_XML_URL_DATA_STATION
 class BaseGeoFinderTestCase(unittest.TestCase):
 
     def test_ComputeSquareArea(self):
-        finder = BaseGeoFinder()
-        finder.lat = 1
-        finder.lng = 1
+        finder = BaseGeoFinder(1, 1)
         self.assertEquals(finder.compute_square_area(),
                           (('0.99', '1.00', '1.01'), ('0.99', '1.00', '1.01')))
         finder.lat = '1'
@@ -29,9 +27,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
                           (('4.89', '4.90', '4.91'), ('18.79', '18.80', '18.81')))
 
     def test_ComputeStationDistances(self):
-        finder = BaseGeoFinder()
-        finder.lat = 1
-        finder.lng = 1
+        finder = BaseGeoFinder(1, 1)
 
         si1 = StationInformation(id=42, lat=1, lng=1)
         result = finder.compute_station_distances([si1])
@@ -53,7 +49,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
         test_2 = (('48.80', '48.81', '48.82'), ('2.37', '2.38', '2.39'))
 
         Cartography.synchronize(TEST_XML_URL_DATA_STATION)
-        finder = BaseGeoFinder()
+        finder = BaseGeoFinder(1, 1)
 
         self.assertEquals(len(finder.get_stations_in_area(*test_1)), 0)
         self.assertEquals(len(finder.get_stations_in_area(*test_2)), 16)
@@ -63,9 +59,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
     def test_GetStationsAround(self):
         Cartography.synchronize(TEST_XML_URL_DATA_STATION)
 
-        finder = BaseGeoFinder()
-        finder.lat = 1
-        finder.lng = 1
+        finder = BaseGeoFinder(1, 1)
         self.assertEquals(len(finder.get_stations_around()), 0)
 
         finder.lat = 48.81
@@ -79,9 +73,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
     def test_Cache(self):
         key = (1, 1)
         self.assertFalse(global_geofinder_cache.has_key(key))        
-        finder = BaseGeoFinder()
-        finder.lat = key[0]
-        finder.lng = key[1]
+        finder = BaseGeoFinder(key[0], key[1])
         finder.get_stations_around()
         self.assertTrue(global_geofinder_cache.has_key(key))
 
@@ -104,8 +96,8 @@ class AddressGeoFinderTestCase(unittest.TestCase):
         address = '1 place de la Bastille, 75012 Paris'
         geofinder = AddressGeoFinder(address)
         self.assertEquals(geofinder.precision, 8)
-        self.assertEquals(geofinder.lat, '48.8530854')
-        self.assertEquals(geofinder.lng, '2.3687089')
+        self.assertEquals(geofinder.lat, 48.853085399999998)
+        self.assertEquals(geofinder.lng, 2.3687089000000001)
 
         address = 'Bethune, 62400'
         self.assertRaises(GeoFinderError, AddressGeoFinder, address)
@@ -113,7 +105,7 @@ class AddressGeoFinderTestCase(unittest.TestCase):
     def test_GeoCompute(self):
         address = '1 place de la Bastille, 75012 Paris'
         geofinder = AddressGeoFinder(address)
-        self.assertEquals(len(geofinder.geocompute(address)), 3)
+        self.assertEquals(len(geofinder.geocompute(address)), 5)
 
 suite = unittest.TestSuite([
     unittest.TestLoader().loadTestsFromTestCase(BaseGeoFinderTestCase),

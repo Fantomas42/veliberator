@@ -3,6 +3,8 @@ from math import sqrt
 from urllib import quote_plus
 from urllib import urlopen
 
+import simplejson as json
+
 from veliberator.models import StationInformation
 
 global_geofinder_cache = {}
@@ -32,6 +34,9 @@ class BaseGeoFinder(object):
     def __init__(self, lat, lng):
         self.lat = lat
         self.lng = lng
+
+    #def r_geocompute(self):
+    #    http://maps.google.com/maps/geo?q=40.714224,-73.961452&output=json&oe=utf8&sensor=true_or_false&key=your_api_key
 
     def compute_square_area(self):
         """Round the GPS coordonates to a wide area"""
@@ -103,24 +108,25 @@ class AddressGeoFinder(BaseGeoFinder):
         """Init the object with an address
         who will be geocomputed"""
         self.address = address
-        precision, lat, lng = self.geocompute(address)
+        informations = self.geocompute(address)
 
-        self.lat = lat
-        self.lng = lng
-        self.precision = int(precision)
+        self.lat = informations['Point']['coordinates'][1]
+        self.lng = informations['Point']['coordinates'][0]
+        self.precision = informations['AddressDetails']['Accuracy']
+        self.clean_address = informations['address']   
 
         if self.precision <= 6:
             raise GeoFinderError('Your address is not available.')
 
     def geocompute(self, address):
         """Geocompute an address with GMap"""
-        #need to change format, for more information
         address = quote_plus(address)
         request = "http://maps.google.com/maps/geo?sensor=false&q=%s&output=%s&oe=utf8&gl=fr" % (
-            address, 'csv')
-        data = urlopen(request).read().split(',')
-        if data[0] != '200':
+            address, 'json')
+        data = json.loads(urlopen(request).read())
+        
+        if data['Status']['code'] != 200:
             raise GeoFinderError('Service unavailable')
-        return data[1:]
+        return data['Placemark'][0]
 
 
