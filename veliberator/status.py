@@ -42,7 +42,7 @@ class StationStatus(object):
         try:
             dom = parse(urlopen(self.xml_url))        
             status = xml_station_status_wrapper(dom.firstChild)
-        except (IOError, ExpatError):
+        except (IOError, IndexError, ExpatError):
             status = {'total': 0, 'available': 0,
                       'free': 0, 'ticket': False}
         status['datetime'] = datetime.now()
