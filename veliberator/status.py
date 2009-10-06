@@ -1,12 +1,12 @@
 """Status objects for veliberator"""
-from urllib import urlopen
 from datetime import datetime, timedelta
-from xml.dom.minidom import parse
+from xml.dom.minidom import parseString
 from xml.parsers.expat import ExpatError
 
 from veliberator.settings import STATION_STATUS_RECENT
 from veliberator.settings import XML_URL_STATUS_STATION
 from veliberator.xml_wrappers import xml_station_status_wrapper
+from veliberator.grabber import Grabber
 
 global_stationstatus_cache = {}
 
@@ -40,9 +40,9 @@ class StationStatus(object):
     def get_status(self):
         """Get the status provided by an URL"""
         try:
-            dom = parse(urlopen(self.xml_url))        
+            dom = parseString(Grabber(self.xml_url).content)        
             status = xml_station_status_wrapper(dom.firstChild)
-        except (IOError, IndexError, ExpatError):
+        except (IOError, IndexError, ValueError, ExpatError):
             status = {'total': 0, 'available': 0,
                       'free': 0, 'ticket': False}
         status['datetime'] = datetime.now()
