@@ -25,7 +25,7 @@ def display_free_stations(stations, places):
         
 
 if __name__ == '__main__':   
-    parser = OptionParser(usage='usage: %prog station_id [options]')
+    parser = OptionParser(usage='usage: %prog [station_id] [options]')
     parser.add_option('-d', '--database', dest='database',
                       help='The SQLURI of the database', default=DATABASE_URI)
     parser.add_option('-p', '--places', dest='places', type='int',
@@ -35,8 +35,11 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
     
     db_connection(options.database)
-
-    user_input = raw_input('Identifiant de la station, ou adresse complete :\n')
+    
+    if args:
+        user_input = args[0]
+    else:
+        user_input = raw_input('Identifiant de la station, ou adresse complete :\n')
 
     if user_input.isdigit():
         station = Station(user_input)
