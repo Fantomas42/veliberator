@@ -15,7 +15,7 @@ setup(
 
     packages=find_packages(exclude=['tests',]),
     install_requires = ['SQLAlchemy>=0.5',
-                        'Elixir>=0.6.1',
+                        'Elixir>=0.7.0',
                         'simplejson>=2.0.9'],
     include_package_data=True,
         
