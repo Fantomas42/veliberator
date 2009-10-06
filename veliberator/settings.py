@@ -18,3 +18,5 @@ DATABASE_ECHO = config.getboolean('DATABASE', 'echo')
 
 TEST_XML_URL_DATA_STATION = config.get('TEST', 'url_data_station')
 
+PROXY_USAGE = config.getboolean('PROXY', 'usage')
+PROXY_SERVERS = config.get('PROXY', 'servers')
