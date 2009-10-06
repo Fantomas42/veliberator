@@ -2,26 +2,26 @@
 import urllib2
 from random import sample
 
-from veliberator.settings import PROXY_USAGE
 from veliberator.settings import PROXY_SERVERS
-
-SERVERS = PROXY_SERVERS.split(';')
 
 class Grabber(object):
     """Url encapsultation for making request throught HTTP"""
+    page = None
+    data = None
 
-    def __init__(self, url):
+    def __init__(self, url, proxies=PROXY_SERVERS):
         """Init the grabber"""
         self.url = url
+        self.proxies = proxies
         self.opener = self.build_opener()
-        self.data = None
 
     def build_opener(self):
         """Build the url opener"""
         handlers = []
-
-        if PROXY_USAGE:
-            handlers.append(urllib2.ProxyHandler({"http" : sample(SERVERS, 1)[0]}))
+        
+        if self.proxies:
+            server = sample(self.proxies, 1)[0]
+            handlers.append(urllib2.ProxyHandler({"http" : server}))
 
         return urllib2.build_opener(*handlers)
 
