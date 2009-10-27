@@ -6,6 +6,8 @@ from veliberator.geofinder import BaseGeoFinder
 from veliberator.geofinder import StationGeoFinder
 from veliberator.geofinder import AddressGeoFinder
 from veliberator.geofinder import GeoFinderError
+from veliberator.geofinder import pythagor_distance
+from veliberator.geofinder import haversine_distance
 from veliberator.models import StationInformation
 from veliberator import Cartography
 from veliberator import Station
@@ -31,11 +33,14 @@ class BaseGeoFinderTestCase(unittest.TestCase):
 
         si1 = StationInformation(id=42, lat=1, lng=1)
         result = finder.compute_station_distances([si1])
-        self.assertEquals(result, {})
+        self.assertEquals(result, [])
 
         si2 = StationInformation(id=43, lat=4, lng=5)
         result = finder.compute_station_distances([si2,])
-        self.assertEquals(result, {si2: 5.0})
+        self.assertEquals(result, [si2])
+        self.assertEquals(result[0].distance, 556281.9630214232)
+        result = finder.compute_station_distances([si2,], pythagor_distance)
+        self.assertEquals(result[0].distance, 5.0)
 
         si3 = StationInformation(id=44, lat=8, lng=10)
         si4 = StationInformation(id=45, lat=6, lng=5.5)
@@ -64,7 +69,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
 
         finder.lat = 48.81
         finder.lng = 2.38
-        self.assertEquals(finder.get_stations_around(),                     
+        self.assertEquals([station.id for station in finder.get_stations_around()],
                           [42012, 42010, 42009, 42008, 42016, 42006, 42007, 42015,
                            42014, 42002, 42001, 42011, 42003, 13055, 42004, 42201])
         
