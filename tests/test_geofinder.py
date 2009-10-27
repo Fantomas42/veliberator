@@ -57,7 +57,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
         finder = BaseGeoFinder(1, 1)
 
         self.assertEquals(len(finder.get_stations_in_area(*test_1)), 0)
-        self.assertEquals(len(finder.get_stations_in_area(*test_2)), 16)
+        self.assertEquals(len(finder.get_stations_in_area(*test_2)), 8)
                 
         Cartography.flush()
 
@@ -70,8 +70,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
         finder.lat = 48.81
         finder.lng = 2.38
         self.assertEquals([station.id for station in finder.get_stations_around()],
-                          [42012, 42010, 42009, 42008, 42016, 42006, 42007, 42015,
-                           42014, 42002, 42001, 42011, 42003, 13055, 42004, 42201])
+                          [42012, 42010, 42009, 42008, 42016, 42006, 42007, 42015])
         
         Cartography.flush()
 

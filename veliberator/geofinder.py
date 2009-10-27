@@ -53,6 +53,8 @@ class BaseGeoFinder(object):
     for finding stations around"""
     lat = None
     lng = None
+    precision = '%.2f'
+    square_size = 0.01
 
     def __init__(self, lat, lng):
         self.lat = lat
@@ -60,16 +62,15 @@ class BaseGeoFinder(object):
 
     def compute_square_area(self):
         """Round the GPS coordonates to a wide area"""
-        #to be refactored for configuring the area size
         lat_orig = float(self.lat)
-        lat_pos = '%.2f' % (lat_orig + 0.01)
-        lat_neg = '%.2f' % (lat_orig - 0.01)
-        lat_orig = '%.2f' % lat_orig
+        lat_pos = self.precision % (lat_orig + self.square_size)
+        lat_neg = self.precision % (lat_orig - self.square_size)
+        lat_orig = self.precision % lat_orig
 
         lng_orig = float(self.lng)
-        lng_pos = '%.2f' % (lng_orig + 0.01)
-        lng_neg = '%.2f' % (lng_orig - 0.01)
-        lng_orig = '%.2f' % lng_orig
+        lng_pos = self.precision % (lng_orig + self.square_size)
+        lng_neg = self.precision % (lng_orig - self.square_size)
+        lng_orig = self.precision % lng_orig
 
         return (lat_neg, lat_orig, lat_pos), (lng_neg, lng_orig, lng_pos)
 
@@ -95,13 +96,10 @@ class BaseGeoFinder(object):
         """Make a query to find the station with
         lat and lng matching with the area"""
         return StationInformation.query.filter(
-            (StationInformation.lat.startswith(lats[0]) |
-             StationInformation.lat.startswith(lats[1]) |
-             StationInformation.lat.startswith(lats[2])) &
-            (StationInformation.lng.startswith(lngs[0]) |
-             StationInformation.lng.startswith(lngs[1]) |
-             StationInformation.lng.startswith(lngs[2]))).all()
-
+            (StationInformation.lat >= lats[0]) &
+            (StationInformation.lat <= lats[2]) &
+            (StationInformation.lng >= lngs[0]) &
+            (StationInformation.lng <= lngs[2])).all()
 
     @cache_wrapper
     def get_stations_around(self):
