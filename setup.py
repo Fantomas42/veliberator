@@ -2,11 +2,11 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2.7'
+from veliberator import VERSION
 
 setup(
     name='veliberator',
-    version=version,
+    version=VERSION,
     zip_safe=True,
 
     scripts=['./bin/find_place.py',
