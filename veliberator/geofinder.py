@@ -53,8 +53,9 @@ class BaseGeoFinder(object):
     for finding stations around"""
     lat = None
     lng = None
-    precision = '%.2f'
-    square_size = 0.01
+    
+    PRECISION = '%.2f'
+    SQUARE_SIZE = 0.01
 
     def __init__(self, lat, lng):
         self.lat = lat
@@ -62,15 +63,15 @@ class BaseGeoFinder(object):
 
     def compute_square_area(self):
         """Round the GPS coordonates to a wide area"""
-        lat_orig = float(self.lat)
-        lat_pos = self.precision % (lat_orig + self.square_size)
-        lat_neg = self.precision % (lat_orig - self.square_size)
-        lat_orig = self.precision % lat_orig
+        lat_orig = float(self.lat)        
+        lat_pos = self.PRECISION % (lat_orig + self.SQUARE_SIZE)
+        lat_neg = self.PRECISION % (lat_orig - self.SQUARE_SIZE)
+        lat_orig = self.PRECISION % lat_orig
 
         lng_orig = float(self.lng)
-        lng_pos = self.precision % (lng_orig + self.square_size)
-        lng_neg = self.precision % (lng_orig - self.square_size)
-        lng_orig = self.precision % lng_orig
+        lng_pos = self.PRECISION % (lng_orig + self.SQUARE_SIZE)
+        lng_neg = self.PRECISION % (lng_orig - self.SQUARE_SIZE)
+        lng_orig = self.PRECISION % lng_orig
 
         return (lat_neg, lat_orig, lat_pos), (lng_neg, lng_orig, lng_pos)
 
