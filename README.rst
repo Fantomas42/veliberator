@@ -4,8 +4,6 @@ Veliberator
 Veliberator provides a Python API for getting informations
 about the stations of the Velib' bike renting network.
 
-.. contents:: Index
-
 Binaries
 --------
 
@@ -29,7 +27,7 @@ To retrieve the informations of a station you only
 have to have the ID of the station, and run synchronize.py
 to initiate the data.
 
-The in your python interpreter : ::
+The in your python interpreter :
 
     >>> from veliberator.stations import Station
     >>> station = Station(42008)
@@ -46,14 +44,14 @@ The informations attributes contains many data such as :
 * opened *(boolean who told if the station is open)*
 * bonus *(boolean who told if the station is a bonus station)*
 
-You could retrieve the live status of the station easily : ::
+You could retrieve the live status of the station easily :
 
     >>> station.status.available
     24
     >>> station.status.free
     1
   
-And we can retrieve the station ids around our station by distance : ::
+And we can retrieve the station ids around our station by distance :
 
     >>> station.stations_around
     [42006, 42010, 42012, 42014, 42016, ...]
