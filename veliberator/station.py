@@ -87,7 +87,7 @@ class Station(object):
             return STATUS_BIKE_ONLY
         elif not available and free:
             return STATUS_PARKING_ONLY
-        elif available + STATION_ALMOST_FULL >= total:
+        elif STATION_ALMOST_FULL >= free:
             return STATUS_ALMOST_FULL
         elif STATION_ALMOST_EMPTY >= available:
             return STATUS_ALMOST_EMPTY

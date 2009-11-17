@@ -69,10 +69,10 @@ class StationTestCase(unittest.TestCase):
         station.status.status = status
 
         self.assertEquals(station.state, STATUS_PARKING_ONLY)
-        station.status.status['available'] = 24
-        self.assertEquals(station.state, STATUS_ALMOST_FULL)
         station.status.status['available'] = 2
         self.assertEquals(station.state, STATUS_ALMOST_EMPTY)
+        station.status.status['free'] = 2
+        self.assertEquals(station.state, STATUS_ALMOST_FULL)
         station.status.status['free'] = 0
         self.assertEquals(station.state, STATUS_BIKE_ONLY)
         station.status.status['available'] = 0
