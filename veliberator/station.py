@@ -4,8 +4,9 @@ from xml.dom.minidom import parse
 from veliberator.models import db_connection
 from veliberator.models import StationInformation
 from veliberator.status import StationStatus
-
 from veliberator.geofinder import StationGeoFinder
+from veliberator.settings import STATION_ALMOST_FULL
+from veliberator.settings import STATION_ALMOST_EMPTY
 
 STATUS_OPEN = u'open'
 STATUS_CLOSE = u'close'
@@ -13,6 +14,8 @@ STATUS_BONUS = u'bonus'
 STATUS_ERROR = u'api-error'
 STATUS_BIKE_ONLY = u'bike-only'
 STATUS_PARKING_ONLY = u'parking-only'
+STATUS_ALMOST_FULL = u'almost-full'
+STATUS_ALMOST_EMPTY = u'almost-empty'
 STATUS_NO_SERVICE = u'no-service'
 
 class UnknowStation(Exception):
@@ -84,6 +87,10 @@ class Station(object):
             return STATUS_BIKE_ONLY
         elif not available and free:
             return STATUS_PARKING_ONLY
+        elif available + STATION_ALMOST_FULL >= total:
+            return STATUS_ALMOST_FULL
+        elif STATION_ALMOST_EMPTY >= available:
+            return STATUS_ALMOST_EMPTY
         elif self.is_bonus:
             return STATUS_BONUS
         return STATUS_OPEN

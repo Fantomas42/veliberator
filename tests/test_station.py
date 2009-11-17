@@ -7,7 +7,8 @@ from veliberator.models import StationInformation
 from veliberator import Cartography
 
 from veliberator.station import STATUS_OPEN, STATUS_CLOSE, STATUS_BONUS, \
-     STATUS_ERROR, STATUS_BIKE_ONLY, STATUS_PARKING_ONLY, STATUS_NO_SERVICE
+     STATUS_ERROR, STATUS_BIKE_ONLY, STATUS_PARKING_ONLY, STATUS_NO_SERVICE, \
+     STATUS_ALMOST_EMPTY, STATUS_ALMOST_FULL
 
 class StationTestCase(unittest.TestCase):
 
@@ -68,16 +69,18 @@ class StationTestCase(unittest.TestCase):
         station.status.status = status
 
         self.assertEquals(station.state, STATUS_PARKING_ONLY)
-        station.status.status['free'] = 0
+        station.status.status['available'] = 24
+        self.assertEquals(station.state, STATUS_ALMOST_FULL)
         station.status.status['available'] = 2
+        self.assertEquals(station.state, STATUS_ALMOST_EMPTY)
+        station.status.status['free'] = 0
         self.assertEquals(station.state, STATUS_BIKE_ONLY)
         station.status.status['available'] = 0
         self.assertEquals(station.state, STATUS_NO_SERVICE)
         station.status.status['total'] = 0
         self.assertEquals(station.state, STATUS_ERROR)
-        station.status.status['total'] = station.status.status['free'] = \
-                                         station.status.status['available'] = 10
-        
+        station.status.status['total'] = 25
+        station.status.status['free'] = station.status.status['available'] = 10
         self.assertEquals(station.state, STATUS_BONUS)
         station.informations.bonus = False
         self.assertEquals(station.state, STATUS_OPEN)
