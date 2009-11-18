@@ -4,7 +4,7 @@ Veliberator
 Veliberator provides a Python API for getting informations
 about the stations of the Velib' bike renting network.
 
-.. contents:: Index
+.. contents::
 
 Binaries
 --------
