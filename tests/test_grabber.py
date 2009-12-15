@@ -25,6 +25,9 @@ class GrabberTestCase(unittest.TestCase):
         #Normaly does not reload the page when reaccessing to content
         self.assertEquals(grabber.content, content)
         self.assertEquals(grabber.page, page)
-        
+
+    def test_ErrorGrabbing(self):
+        grabber = Grabber('http://example.com/badurl')
+        self.assertEquals(grabber.content, '')
 
 suite = unittest.TestLoader().loadTestsFromTestCase(GrabberTestCase)

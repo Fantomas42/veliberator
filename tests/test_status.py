@@ -39,12 +39,9 @@ class StationStatusTestCase(unittest.TestCase):
         self.assertTrue(isinstance(status.get_status(), dict))
 
     def test_GetStatusError(self):
-        status = StationStatus(self.velib_id)
-        status.velib_id = self.velib_id - 1
-        status.xml_url = '.'
+        status = StationStatus(self.velib_id - 1, 'http://example.com/badurl')
         self.assertTrue(isinstance(status.get_status(), dict))
         self.assertEquals(status.free, 0)
-
 
 suite = unittest.TestLoader().loadTestsFromTestCase(StationStatusTestCase)
 

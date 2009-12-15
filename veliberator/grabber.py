@@ -30,9 +30,10 @@ class Grabber(object):
         """Return the data grabbed"""
         if self.data:
             return self.data
-        else:
+        try:
             self.page = self.opener.open(self.url)
             self.data = ''.join(self.page.readlines())
             self.page.close()        
-        
-        return self.data
+            return self.data
+        except IOError, e:
+            return ''
