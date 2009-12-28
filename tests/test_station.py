@@ -4,7 +4,7 @@ import unittest
 from veliberator.settings import TEST_XML_URL_DATA_STATION
 from veliberator.station import UnknowStation, Station
 from veliberator.models import StationInformation
-from veliberator import Cartography
+from veliberator.cartography import Cartography
 
 from veliberator.station import STATUS_OPEN, STATUS_CLOSE, STATUS_BONUS, \
      STATUS_ERROR, STATUS_BIKE_ONLY, STATUS_PARKING_ONLY, STATUS_NO_SERVICE, \

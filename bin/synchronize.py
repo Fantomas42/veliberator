@@ -4,7 +4,7 @@ from optparse import OptionParser
 
 sys.path.append(os.path.abspath('.'))
 
-from veliberator import Cartography
+from veliberator.cartography import Cartography
 from veliberator.models import db_connection
 from veliberator.settings import DATABASE_URI
 

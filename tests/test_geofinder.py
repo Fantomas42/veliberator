@@ -1,6 +1,7 @@
 """Unit tests for GeoFinder objects"""
 import unittest
 
+from veliberator.station import Station
 from veliberator.geofinder import global_geofinder_cache
 from veliberator.geofinder import BaseGeoFinder
 from veliberator.geofinder import StationGeoFinder
@@ -9,8 +10,7 @@ from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import pythagor_distance
 from veliberator.geofinder import haversine_distance
 from veliberator.models import StationInformation
-from veliberator import Cartography
-from veliberator import Station
+from veliberator.cartography import Cartography
 from veliberator.settings import TEST_XML_URL_DATA_STATION
 
 class BaseGeoFinderTestCase(unittest.TestCase):

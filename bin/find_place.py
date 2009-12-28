@@ -6,9 +6,9 @@ import sqlalchemy
 
 sys.path.append(os.path.abspath('.'))
 
-from veliberator import Station
 from veliberator import VERSION
-from veliberator import Cartography
+from veliberator.station import Station
+from veliberator.cartography import Cartography
 from veliberator.models import db_connection
 from veliberator.settings import DATABASE_URI
 from veliberator.geofinder import GeoFinderError
