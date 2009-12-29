@@ -45,6 +45,7 @@ class StationStatus(object):
         except (IOError, IndexError, ValueError, ExpatError):
             status = {'total': 0, 'available': 0,
                       'free': 0, 'ticket': False}
+        status['closed'] = status['total'] - (status['available'] + status['free'])
         status['datetime'] = datetime.now()
         return status
 

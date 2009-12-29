@@ -52,13 +52,17 @@ You could retrieve the live status of the station easily : ::
     24
     >>> station.status.free
     1
+    >>> station.status.total
+    25
+    >>> station.status.closed
+    0
   
 And we can retrieve the station ids around our station by distance : ::
 
     >>> station.stations_around
-    [42006, 42010, 42012, 42014, 42016, ...]
+    [<StationInformation "42006" (23 RUE PIERRE BROSSOLETTE)>, <StationInformation "42010" (1 RUE ROBESPIERRE)>, <StationInformation "42012" (1 RUE HENRY BARBUSSE)>, ...]
 
-Other methods on the Station objects are available, but the source is often more explicit.
+Other methods on the Station objects are available, but the source code is often more explicit.
 
 Settings
 ========

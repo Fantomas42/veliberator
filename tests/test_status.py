@@ -21,6 +21,7 @@ class StationStatusTestCase(unittest.TestCase):
         self.assertTrue(isinstance(status.total, int))
         self.assertTrue(isinstance(status.available, int))
         self.assertTrue(isinstance(status.free, int))
+        self.assertTrue(isinstance(status.closed, int))
 
     def test_Cache(self):
         global global_stationstatus_cache
