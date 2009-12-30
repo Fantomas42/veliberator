@@ -28,7 +28,7 @@ setup(
     license='GPL',
     platforms = 'any',
     description='Python API for Velib.',
-    long_description=open(os.path.join('docs', 'README.txt')).read(),
+    long_description=open(os.path.join('README.rst')).read(),
     keywords='velib, api, service',
     classifiers=[
         'Development Status :: 4 - Beta',
