@@ -35,5 +35,5 @@ class Grabber(object):
             self.data = ''.join(self.page.readlines())
             self.page.close()        
             return self.data
-        except IOError, e:
+        except:
             return ''
