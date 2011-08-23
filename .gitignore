@@ -3,9 +3,12 @@
 *.pyc
 bin/
 lib/
+dist/
+eggs/
 include/
+docs/build/
+develop-eggs/
 TODO
 .installed.cfg
 veliberator.db
-veliberator.egg-info/*
-dist/*
+veliberator.egg-info/
