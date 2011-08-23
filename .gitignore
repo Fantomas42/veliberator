@@ -1,0 +1,10 @@
+*.orig
+*.rej
+*~
+*\#
+*.pyc
+.installed.cfg
+veliberator.db
+veliberator.egg-info/*
+dist/*
+TODO
