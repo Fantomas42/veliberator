@@ -1,26 +1,7 @@
-#!/usr/bin/python
-import sys, os
-from optparse import OptionParser
-
-sys.path.append(os.path.abspath('.'))
-
-from veliberator.cartography import Cartography
-from veliberator.models import db_connection
-from veliberator.settings import DATABASE_URI
-
-if __name__ == '__main__':
-    parser = OptionParser()
-    parser.add_option('-d', '--database', dest='database',
-                      help='The SQLURI of the database', default=DATABASE_URI,
-                      metavar='DATABASE')
-    (options, args) = parser.parse_args()
-    
-    db_connection(options.database)
-    print 'Database open, now synchronizing...'
-    Cartography.synchronize()
-    print 'Synchronization completed !'
-    
-
-    
-    
-    
+#!/home/fantomas/dev/veliberator/bin/python
+# EASY-INSTALL-DEV-SCRIPT: 'veliberator==0.3.dev','synchronize.py'
+__requires__ = 'veliberator==0.3.dev'
+from pkg_resources import require; require('veliberator==0.3.dev')
+del require
+__file__ = '/home/fantomas/dev/veliberator/veliberator/scripts/synchronize.py'
+execfile(__file__)

@@ -28,8 +28,8 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
         ],
 
-    scripts=['./bin/find_place.py',
-             './bin/synchronize.py'],
+    scripts=['./veliberator/scripts/find_place.py',
+             './veliberator/scripts/synchronize.py'],
     data_files=[('/etc', ['etc/veliberator.cfg']),],
     test_suite = 'tests.global_test_suite',
     packages=find_packages(exclude=['tests',]),
