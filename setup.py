@@ -1,40 +1,44 @@
-"""Installing veliberator"""
-from setuptools import setup, find_packages
-import sys, os
+"""Setup script for veliberator"""
+import os
 
-from veliberator import VERSION
+from setuptools import setup
+from setuptools import find_packages
+
+import veliberator
 
 setup(
     name='veliberator',
-    version=VERSION,
-    zip_safe=True,
+    version=veliberator.__version__,
+    license=veliberator.__license__,
 
-    scripts=['./bin/find_place.py',
-             './bin/synchronize.py'],
-    data_files=[('/etc', ['etc/veliberator.cfg']),],
+    author=veliberator.__author__,
+    author_email=veliberator.__email__,
+    url=veliberator.__url__,
 
-    packages=find_packages(exclude=['tests',]),
-    install_requires = ['SQLAlchemy>=0.5',
-                        'Elixir>=0.7.0',
-                        'simplejson>=2.0.9'],
-    include_package_data=True,
-        
-    test_suite = 'tests.global_test_suite',
-
-    author='Fantomas42',
-    author_email='fantomas42@gmail.com',
-    url='http://veliberator.com',
- 
-    license='GPL',
-    platforms = 'any',
     description='Python API for Velib.',
     long_description=open(os.path.join('README.rst')).read(),
     keywords='velib, api, service',
+
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries :: Python Modules',
+        'License :: OSI Approved :: BSD License',
+        'Topic :: Software Development :: Libraries :: Python Modules'
         ],
+
+    scripts=['./bin/find_place.py',
+             './bin/synchronize.py'],
+    data_files=[('/etc', ['etc/veliberator.cfg']),],
+    test_suite = 'tests.global_test_suite',
+    packages=find_packages(exclude=['tests',]),
+
+    zip_safe=False,
+    platforms = 'any',
+    include_package_data=True,
+
+    install_requires = ['SQLAlchemy>=0.5',
+                        'Elixir>=0.7.0',
+                        'simplejson>=2.0.9'],
     )
