@@ -1,10 +1,11 @@
-*.orig
-*.rej
 *~
 *\#
 *.pyc
+bin/
+lib/
+include/
+TODO
 .installed.cfg
 veliberator.db
 veliberator.egg-info/*
 dist/*
-TODO
