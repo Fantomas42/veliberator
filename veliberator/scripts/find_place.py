@@ -6,7 +6,7 @@ import sqlalchemy
 
 sys.path.append(os.path.abspath('.'))
 
-from veliberator import VERSION
+import veliberator
 from veliberator.station import Station
 from veliberator.cartography import Cartography
 from veliberator.models import db_connection
@@ -41,9 +41,9 @@ def display_free_stations(stations, places, max_display):
             print '----------'
             show_status(station, station_information.distance)
             displayed += 1
-    
 
-if __name__ == '__main__':   
+
+if __name__ == '__main__':
     parser = OptionParser(usage='usage: %prog [station_id] [options]')
     parser.add_option('-d', '--database', dest='database',
                       help='The SQLURI of the database', default=DATABASE_URI)
@@ -53,7 +53,7 @@ if __name__ == '__main__':
                       help='The maximun stations around proposed', default=5)
     (options, args) = parser.parse_args()
 
-    print '-==* Veliberator Find Place v%s *==-' % VERSION
+    print '-==* Veliberator Find Place v%s *==-' % veliberator.__version__
 
     try:
         db_connection(options.database)
@@ -63,7 +63,7 @@ if __name__ == '__main__':
         db_connection('sqlite://')
 
     check_database_content()
-    
+
     if args:
         user_input = args[0]
     else:
@@ -78,7 +78,7 @@ if __name__ == '__main__':
                                   options.places, options.max_stations)
     else:
         try:
-            finder = AddressGeoFinder(user_input)            
+            finder = AddressGeoFinder(user_input)
         except GeoFinderError:
             sys.exit('Votre addresse n\'est pas valide ou imprecise.')
         display_free_stations(finder.get_stations_around(),
