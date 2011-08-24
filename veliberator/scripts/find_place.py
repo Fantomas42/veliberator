@@ -14,11 +14,10 @@ from veliberator.geofinder import AddressGeoFinder
 from veliberator.models import StationInformation
 
 
-def check_database_content():
-    if not StationInformation.query.count():
-        print '-> Synchronisation en ligne...'
-        Cartography.synchronize()
-        print '-> Synchronisation complete !'
+def synchronization():
+    print '-> Synchronisation en ligne...'
+    Cartography.synchronize()
+    print '-> Synchronisation complete !'
 
 
 def show_status(station, distance=None):
@@ -53,6 +52,8 @@ if __name__ == '__main__':
                       help='The number of places you want', default=1)
     parser.add_option('-m', '--max_stations', dest='max_stations', type='int',
                       help='The maximun stations around proposed', default=5)
+    parser.add_option('--synchronize', dest='synchronize', action='store_true',
+                      help='Only do a synchronization of the cartography')
     (options, args) = parser.parse_args()
 
     print '-==* Veliberator Find Place v%s *==-' % veliberator.__version__
@@ -60,12 +61,21 @@ if __name__ == '__main__':
     try:
         db_connection(options.database)
     except sqlalchemy.exc.OperationalError:
-        print '-> Database innacessible, switch sur la RAM.'
-        print '-> Modifiez le fichier de configuration, ' \
-              'pour enlever ce message.'
-        db_connection('sqlite://')
+        if options.synchronize:
+            print '-> Database %s innacessible.' % options.database
+            sys.exit(1)
+        else:
+            print '-> Database innacessible, switch sur la RAM.'
+            print '-> Modifiez le fichier de configuration, ' \
+                  'pour enlever ce message.'
+            db_connection('sqlite://')
 
-    check_database_content()
+    if options.synchronize:
+        synchronization()
+        sys.exit(0)
+
+    if not StationInformation.query.count():
+        synchronization()
 
     if args:
         user_input = args[0]
