@@ -56,7 +56,7 @@ if __name__ == '__main__':
                       help='Only do a synchronization of the cartography')
     (options, args) = parser.parse_args()
 
-    print '-==* Veliberator Find Place v%s *==-' % veliberator.__version__
+    print '-==* Veliberator v%s *==-' % veliberator.__version__
 
     try:
         db_connection(options.database)
