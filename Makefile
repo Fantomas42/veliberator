@@ -26,7 +26,7 @@ kwalitee:
 	@echo "$(COLOR)* Running pyflakes$(NO_COLOR)"
 	@./bin/pyflakes veliberator
 	@echo "$(COLOR)* Running pep8$(NO_COLOR)"
-	@./bin/pep8 --count veliberator
+	@./bin/pep8 --count -r veliberator
 	@echo "$(SUCCESS_COLOR)* No kwalitee errors, Congratulations ! :)$(NO_COLOR)"
 
 clean:
