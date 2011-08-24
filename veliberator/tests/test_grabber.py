@@ -28,7 +28,7 @@ class GrabberTestCase(unittest.TestCase):
         self.assertEquals(grabber.page, page)
 
     def test_ErrorGrabbing(self):
-        grabber = Grabber('http://example.com/badurl')
+        grabber = Grabber('http://inexistingdomain.test/badurl')
         self.assertEquals(grabber.content, '')
 
 
