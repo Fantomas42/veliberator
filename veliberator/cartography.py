@@ -11,11 +11,11 @@ class Cartography(object):
     """Grab the data and save it in db"""
 
     @staticmethod
-    def synchronize(url=XML_URL_DATA_STATION):        
+    def synchronize(url=XML_URL_DATA_STATION):
         dom = parseString(Grabber(url).content)
         for marker in dom.getElementsByTagName('marker'):
             values = xml_station_information_wrapper(marker)
-            station = StationInformation.update_or_create(values, surrogate=False)
+            StationInformation.update_or_create(values, surrogate=False)
 
         session.commit()
 

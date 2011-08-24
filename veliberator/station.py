@@ -1,6 +1,4 @@
 """Station objects for veliberator"""
-from xml.dom.minidom import parse
-
 from veliberator.models import db_connection
 from veliberator.models import StationInformation
 from veliberator.status import StationStatus

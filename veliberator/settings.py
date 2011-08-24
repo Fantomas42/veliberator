@@ -1,7 +1,6 @@
 """Settings for Veliberator"""
 import os
 from ConfigParser import SafeConfigParser
-from ConfigParser import NoSectionError, NoOptionError
 
 config = SafeConfigParser()
 config.read([os.path.join('/etc', 'veliberator.cfg'),

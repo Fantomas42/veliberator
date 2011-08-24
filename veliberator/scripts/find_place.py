@@ -4,7 +4,7 @@ from optparse import OptionParser
 
 import sqlalchemy
 
-sys.path.append(os.path.abspath('.'))
+sys.path.append(os.path.abspath('.')) # TODO remove ?
 
 import veliberator
 from veliberator.station import Station
