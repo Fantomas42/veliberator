@@ -30,15 +30,15 @@ setup(
 
     scripts=['./veliberator/scripts/find_place.py',
              './veliberator/scripts/synchronize.py'],
-    data_files=[('/etc', ['etc/veliberator.cfg']),],
-    test_suite = 'tests.global_test_suite',
-    packages=find_packages(exclude=['tests',]),
+    data_files=[('/etc', ['etc/veliberator.cfg'])],
+    test_suite='veliberator.tests.global_test_suite',
+    packages=find_packages(exclude=['tests']),
 
     zip_safe=False,
-    platforms = 'any',
+    platforms='any',
     include_package_data=True,
 
-    install_requires = ['SQLAlchemy>=0.5',
-                        'Elixir>=0.7.0',
-                        'simplejson>=2.0.9'],
+    install_requires=['SQLAlchemy>=0.5',
+                      'Elixir>=0.7.0',
+                      'simplejson>=2.0.9'],
     )
