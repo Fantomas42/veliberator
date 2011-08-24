@@ -1,10 +1,12 @@
 """Objects for helping filling data"""
 from xml.dom.minidom import parseString
 
+from elixir import session
+
 from veliberator.grabber import Grabber
 from veliberator.settings import XML_URL_DATA_STATION
 from veliberator.xml_wrappers import xml_station_information_wrapper
-from veliberator.models import StationInformation, session
+from veliberator.models import StationInformation
 
 
 class Cartography(object):
@@ -22,4 +24,3 @@ class Cartography(object):
     @staticmethod
     def flush():
         StationInformation.query.delete()
-

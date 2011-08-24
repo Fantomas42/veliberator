@@ -10,20 +10,22 @@ from veliberator.grabber import Grabber
 
 global_stationstatus_cache = {}
 
+
 def cache_wrapper(method):
     def cache(instance):
         """Use a timed cache for result, and set
         the results into the instance"""
         global global_stationstatus_cache
-        
+
         key_cache = instance.velib_id
-        if not global_stationstatus_cache.has_key(key_cache) or \
+        if not key_cache in global_stationstatus_cache or \
                global_stationstatus_cache[key_cache]['datetime'] + \
                timedelta(minutes=STATION_STATUS_RECENT) < datetime.now():
             global_stationstatus_cache[key_cache] = method(instance)
         instance.status = global_stationstatus_cache[key_cache]
         return instance.status
     return cache
+
 
 class StationStatus(object):
     """Status of a station, by opening an url
@@ -40,18 +42,19 @@ class StationStatus(object):
     def get_status(self):
         """Get the status provided by an URL"""
         try:
-            dom = parseString(Grabber(self.xml_url).content)        
+            dom = parseString(Grabber(self.xml_url).content)
             status = xml_station_status_wrapper(dom.firstChild)
         except (IOError, IndexError, ValueError, ExpatError):
             status = {'total': 0, 'available': 0,
                       'free': 0, 'ticket': False}
-        status['closed'] = status['total'] - (status['available'] + status['free'])
+        status['closed'] = status['total'] - (
+            status['available'] + status['free'])
         status['datetime'] = datetime.now()
         return status
 
     def __getattr__(self, name):
         """Allow direct access to self.status items"""
-        if self.status.has_key(name):
+        if name in self.status:
             return self.status.get(name)
         return getattr(self, name)
 

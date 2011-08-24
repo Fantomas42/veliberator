@@ -16,8 +16,10 @@ STATUS_ALMOST_FULL = u'almost-full'
 STATUS_ALMOST_EMPTY = u'almost-empty'
 STATUS_NO_SERVICE = u'no-service'
 
+
 class UnknowStation(Exception):
     pass
+
 
 class Station(object):
     """Station object,
@@ -75,7 +77,7 @@ class Station(object):
 
         free = self.status.free
         available = self.status.available
-        total =  self.status.total
+        total = self.status.total
 
         if not available and not free:
             if not total:
@@ -97,5 +99,3 @@ class Station(object):
         if self.informations:
             return '<Station "%s" (%s)>' % (self.id, self.informations.address)
         return '<Station "%s">' % self.id
-
-

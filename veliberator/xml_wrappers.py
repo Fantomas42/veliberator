@@ -1,14 +1,17 @@
 """Xml functions for helping in convertion of data"""
 
+
 def xml_station_status_wrapper(xmlnode):
     """Convert Station status xml
     to a usable dict"""
-    
-    return {'total': int(xmlnode.getElementsByTagName('total')[0].childNodes[0].data),
-            'available': int(xmlnode.getElementsByTagName('available')[0].childNodes[0].data),
-            'free': int(xmlnode.getElementsByTagName('free')[0].childNodes[0].data),
-            'ticket': int(xmlnode.getElementsByTagName('ticket')[0].childNodes[0].data) == 1}
- 
+    def node_value(name):
+        return xmlnode.getElementsByTagName(name)[0].childNodes[0].data
+
+    return {'total': int(node_value('total')),
+            'available': int(node_value('available')),
+            'free': int(node_value('free')),
+            'ticket': int(node_value('ticket')) == 1}
+
 
 def xml_station_information_wrapper(xmlnode):
     """Convert Station information xml
@@ -31,4 +34,4 @@ def xml_station_information_wrapper(xmlnode):
             'lat': xmlnode.getAttribute('lat'),
             'lng': xmlnode.getAttribute('lng'),
             'opened': xmlnode.getAttribute('open') == '1',
-            'bonus': xmlnode.getAttribute('bonus') == '1',}
+            'bonus': xmlnode.getAttribute('bonus') == '1'}

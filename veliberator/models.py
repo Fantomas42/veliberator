@@ -14,6 +14,7 @@ from elixir import using_options
 
 from veliberator.settings import DATABASE_URI, DATABASE_ECHO
 
+
 class StationInformation(Entity):
     """Station information entity model"""
     id = Field(Integer, primary_key=True)

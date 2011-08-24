@@ -4,6 +4,7 @@ from random import sample
 
 from veliberator.settings import PROXY_SERVERS
 
+
 class Grabber(object):
     """Url encapsultation for making request throught HTTP"""
     page = None
@@ -18,10 +19,10 @@ class Grabber(object):
     def build_opener(self):
         """Build the url opener"""
         handlers = []
-        
+
         if self.proxies:
             server = sample(self.proxies, 1)[0]
-            handlers.append(urllib2.ProxyHandler({"http" : server}))
+            handlers.append(urllib2.ProxyHandler({'http': server}))
 
         return urllib2.build_opener(*handlers)
 
@@ -33,7 +34,7 @@ class Grabber(object):
         try:
             self.page = self.opener.open(self.url)
             self.data = ''.join(self.page.readlines())
-            self.page.close()        
+            self.page.close()
             return self.data
         except:
             return ''

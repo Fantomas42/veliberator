@@ -1,10 +1,8 @@
 #!/usr/bin/python
-import sys, os
+import sys
 from optparse import OptionParser
 
 import sqlalchemy
-
-sys.path.append(os.path.abspath('.')) # TODO remove ?
 
 import veliberator
 from veliberator.station import Station
@@ -15,11 +13,13 @@ from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import AddressGeoFinder
 from veliberator.models import StationInformation
 
+
 def check_database_content():
     if not StationInformation.query.count():
         print '-> Synchronisation en ligne...'
         Cartography.synchronize()
         print '-> Synchronisation complete !'
+
 
 def show_status(station, distance=None):
     print "Station '%s'" % station.id
@@ -27,8 +27,10 @@ def show_status(station, distance=None):
         print '%s (%.2fm)' % (station.informations.full_address, distance)
     else:
         print station.informations.full_address
-    print '%s/%s velo(s) disponible' % (station.status.available, station.status.total)
+    print '%s/%s velo(s) disponible' % (station.status.available,
+                                        station.status.total)
     print '%s place(s) disponible' % station.status.free
+
 
 def display_free_stations(stations, places, max_display):
     displayed = 0
@@ -59,7 +61,8 @@ if __name__ == '__main__':
         db_connection(options.database)
     except sqlalchemy.exc.OperationalError:
         print '-> Database innacessible, switch sur la RAM.'
-        print '-> Modifiez le fichier de configuration, pour enlever ce message.'
+        print '-> Modifiez le fichier de configuration, ' \
+              'pour enlever ce message.'
         db_connection('sqlite://')
 
     check_database_content()
@@ -67,7 +70,8 @@ if __name__ == '__main__':
     if args:
         user_input = args[0]
     else:
-        user_input = raw_input('Identifiant de la station, ou adresse complete :\n')
+        user_input = raw_input('Identifiant de la station, '\
+                               'ou adresse complete :\n')
 
     if user_input.isdigit():
         station = Station(user_input)
