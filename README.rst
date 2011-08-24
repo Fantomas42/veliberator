@@ -1,52 +1,37 @@
 Veliberator
 ===========
 
-Veliberator provides a Python API for getting informations
-about the stations of the Velib' bike renting network.
+**Veliberator** is a Python module providing an API for getting
+informations about the stations of the Velib' bike renting network.
+
 
 .. contents::
 
-Binaries
---------
+API Usage
+---------
 
-The packages provides few binaries to tests and to initialize the datas.
+To retrieve the informations of a station you only have to have the ID of
+the station and a database synchronized with all the available stations.
 
-* synchronize.py
-
-  Must be used at first to grab the general datas about the stations.
-
-* find_place.py
-
-  A test script for finding free places to park a bike or the stations around.
-
-Note that you must run these commands as root until you have not configured 
-your own settings.
-
-Usage
------
-
-To retrieve the informations of a station you only
-have to have the ID of the station, and run synchronize.py
-to initiate the data.
-
-The in your python interpreter : ::
-
+Then in your python interpreter:
+::
     >>> from veliberator.stations import Station
     >>> station = Station(42008)
     >>> station.informations.address
     u'128 AVENUE DANIEL CASANOVA'
 
-The informations attributes contains many data such as :
+The informations attributes contains many data such as:
 
-* address
-* postal_code
-* city
-* lat *(the latitude of GPS coordonates)*
-* lng *(the longitude of GPS coordonates)*
-* opened *(boolean who told if the station is open)*
-* bonus *(boolean who told if the station is a bonus station)*
+* ``address``
+* ``postal_code``
+* ``city``
+* ``lat`` *(the latitude of the GPS coordonates)*
+* ``lng`` *(the longitude of the GPS coordonates)*
+* ``opened`` *(True if the station is open)*
+* ``bonus`` *(True if the station is a bonus station)*
 
-You could retrieve the live status of the station easily : ::
+You could retrieve the live status of the station easily:
+::
 
     >>> station.status.available
     24
@@ -56,17 +41,52 @@ You could retrieve the live status of the station easily : ::
     25
     >>> station.status.closed
     0
-  
-And we can retrieve the station ids around our station by distance : ::
+
+More useful, you can retrieve the closest stations around sorted by
+distance:
+::
 
     >>> station.stations_around
-    [<StationInformation "42006" (23 RUE PIERRE BROSSOLETTE)>, <StationInformation "42010" (1 RUE ROBESPIERRE)>, <StationInformation "42012" (1 RUE HENRY BARBUSSE)>, ...]
+    [<StationInformation "42006" (23 RUE PIERRE BROSSOLETTE)>, <StationInformation "42010" (1 RUE ROBESPIERRE)>, ...]
 
-Other methods on the Station objects are available, but the source code is often more explicit.
+The **veliberator** script
+--------------------------
+
+Writing an API for developers is a nice idea, but writing an useful script
+implementing the API for the end-user is a much nicer idea.
+
+So the package provide a script named ``veliberator``.
+
+For exemple if I need to know the status of the Velib' station with the ID:
+*42008*, I simply need to run this command:
+::
+
+  $ veliberator 42008
+
+This command will display the status of the station and find other stations
+around if no parking place are available.
+
+The ``veliberator`` script can also find the Velib' stations around an
+address, by simply launching the script.
+
+Note that at the first run of the script a database will be created for
+registering all the available Velib' stations.
+
+For updating or creating the database you can run this command:
+::
+
+  $ veliberator --synchronize
+
+Run this command for more informations:
+::
+
+  $ veliberator -h
 
 Settings
-========
+--------
 
-You can change the settings of the applications by creating or editing the *.veliberator.cfg* 
-file in your home directory, basing on the */etc/veliberator.cfg*.
+The veliberator module has a configuration file needed for running, this
+file contains all the options of the module.
 
+So you can change the options of the module and the script simply by editing
+the ``.veliberator.cfg`` file located in your home directory.
