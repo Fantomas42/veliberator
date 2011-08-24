@@ -18,4 +18,4 @@ global_test_suite = unittest.TestSuite([models_suite,
                                         cartography_suite,
                                         status_suite,
                                         geofinder_suite,
-                                        grabber_suite,])
+                                        grabber_suite])

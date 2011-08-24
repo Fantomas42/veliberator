@@ -5,6 +5,7 @@ from veliberator.grabber import Grabber
 from veliberator.settings import PROXY_SERVERS
 from veliberator.settings import TEST_XML_URL_DATA_STATION
 
+
 class GrabberTestCase(unittest.TestCase):
 
     def test_Init(self):
@@ -29,5 +30,6 @@ class GrabberTestCase(unittest.TestCase):
     def test_ErrorGrabbing(self):
         grabber = Grabber('http://example.com/badurl')
         self.assertEquals(grabber.content, '')
+
 
 suite = unittest.TestLoader().loadTestsFromTestCase(GrabberTestCase)

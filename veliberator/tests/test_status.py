@@ -6,6 +6,7 @@ from veliberator.status import StationStatus
 from veliberator.status import global_stationstatus_cache
 from veliberator.settings import STATION_STATUS_RECENT
 
+
 class StationStatusTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -13,7 +14,7 @@ class StationStatusTestCase(unittest.TestCase):
 
     def tearDown(self):
         global global_stationstatus_cache
-        global_stationstatus_cache = {}
+        global_stationstatus_cache.clear()
 
     def test_Init(self):
         status = StationStatus(self.velib_id)
@@ -25,13 +26,14 @@ class StationStatusTestCase(unittest.TestCase):
 
     def test_Cache(self):
         global global_stationstatus_cache
-        
+
         status = StationStatus(self.velib_id)
         data_compare = global_stationstatus_cache[self.velib_id].copy()
         status.get_status()
         self.assertEquals(status.status, data_compare)
         global_stationstatus_cache[self.velib_id][\
-            'datetime'] = datetime.now() - timedelta(minutes=STATION_STATUS_RECENT + 5)
+            'datetime'] = datetime.now() - timedelta(
+            minutes=STATION_STATUS_RECENT + 5)
         status.get_status()
         self.assertNotEquals(status.status, data_compare)
 
@@ -44,6 +46,5 @@ class StationStatusTestCase(unittest.TestCase):
         self.assertTrue(isinstance(status.get_status(), dict))
         self.assertEquals(status.free, 0)
 
-suite = unittest.TestLoader().loadTestsFromTestCase(StationStatusTestCase)
 
-    
+suite = unittest.TestLoader().loadTestsFromTestCase(StationStatusTestCase)

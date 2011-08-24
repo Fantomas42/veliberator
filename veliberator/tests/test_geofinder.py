@@ -8,25 +8,28 @@ from veliberator.geofinder import StationGeoFinder
 from veliberator.geofinder import AddressGeoFinder
 from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import pythagor_distance
-from veliberator.geofinder import haversine_distance
 from veliberator.models import StationInformation
 from veliberator.cartography import Cartography
 from veliberator.settings import TEST_XML_URL_DATA_STATION
+
 
 class BaseGeoFinderTestCase(unittest.TestCase):
 
     def test_ComputeSquareArea(self):
         finder = BaseGeoFinder(1, 1)
         self.assertEquals(finder.compute_square_area(),
-                          (('0.99', '1.00', '1.01'), ('0.99', '1.00', '1.01')))
+                          (('0.99', '1.00', '1.01'),
+                           ('0.99', '1.00', '1.01')))
         finder.lat = '1'
         finder.lng = '1'
         self.assertEquals(finder.compute_square_area(),
-                          (('0.99', '1.00', '1.01'), ('0.99', '1.00', '1.01')))
+                          (('0.99', '1.00', '1.01'),
+                           ('0.99', '1.00', '1.01')))
         finder.lat = 4.897645
         finder.lng = 18.798923
         self.assertEquals(finder.compute_square_area(),
-                          (('4.89', '4.90', '4.91'), ('18.79', '18.80', '18.81')))
+                          (('4.89', '4.90', '4.91'),
+                           ('18.79', '18.80', '18.81')))
 
     def test_ComputeStationDistances(self):
         finder = BaseGeoFinder(1, 1)
@@ -36,10 +39,10 @@ class BaseGeoFinderTestCase(unittest.TestCase):
         self.assertEquals(result, [])
 
         si2 = StationInformation(id=43, lat=4, lng=5)
-        result = finder.compute_station_distances([si2,])
+        result = finder.compute_station_distances([si2])
         self.assertEquals(result, [si2])
         self.assertEquals(result[0].distance, 556281.9630214232)
-        result = finder.compute_station_distances([si2,], pythagor_distance)
+        result = finder.compute_station_distances([si2], pythagor_distance)
         self.assertEquals(result[0].distance, 5.0)
 
         si3 = StationInformation(id=44, lat=8, lng=10)
@@ -58,7 +61,7 @@ class BaseGeoFinderTestCase(unittest.TestCase):
 
         self.assertEquals(len(finder.get_stations_in_area(*test_1)), 0)
         self.assertEquals(len(finder.get_stations_in_area(*test_2)), 8)
-                
+
         Cartography.flush()
 
     def test_GetStationsAround(self):
@@ -69,17 +72,18 @@ class BaseGeoFinderTestCase(unittest.TestCase):
 
         finder.lat = 48.81
         finder.lng = 2.38
-        self.assertEquals([station.id for station in finder.get_stations_around()],
-                          [42012, 42010, 42009, 42008, 42016, 42006, 42007, 42015])
-        
+        self.assertEquals(
+            [station.id for station in finder.get_stations_around()],
+            [42012, 42010, 42009, 42008, 42016, 42006, 42007, 42015])
+
         Cartography.flush()
 
     def test_Cache(self):
         key = (1, 1)
-        self.assertFalse(global_geofinder_cache.has_key(key))        
+        self.assertFalse(key in global_geofinder_cache)
         finder = BaseGeoFinder(key[0], key[1])
         finder.get_stations_around()
-        self.assertTrue(global_geofinder_cache.has_key(key))
+        self.assertTrue(key in global_geofinder_cache)
 
 
 class StationGeoFinderTestCase(unittest.TestCase):
@@ -93,6 +97,7 @@ class StationGeoFinderTestCase(unittest.TestCase):
         self.assertEquals(geofinder.lng, station.informations.lng)
 
         Cartography.flush()
+
 
 class AddressGeoFinderTestCase(unittest.TestCase):
 
@@ -111,8 +116,8 @@ class AddressGeoFinderTestCase(unittest.TestCase):
         geofinder = AddressGeoFinder(address)
         self.assertEquals(len(geofinder.geocompute(address)), 5)
 
+
 suite = unittest.TestSuite([
     unittest.TestLoader().loadTestsFromTestCase(BaseGeoFinderTestCase),
     unittest.TestLoader().loadTestsFromTestCase(StationGeoFinderTestCase),
-    unittest.TestLoader().loadTestsFromTestCase(AddressGeoFinderTestCase),])
-
+    unittest.TestLoader().loadTestsFromTestCase(AddressGeoFinderTestCase)])

@@ -10,6 +10,7 @@ from veliberator.station import STATUS_OPEN, STATUS_CLOSE, STATUS_BONUS, \
      STATUS_ERROR, STATUS_BIKE_ONLY, STATUS_PARKING_ONLY, STATUS_NO_SERVICE, \
      STATUS_ALMOST_EMPTY, STATUS_ALMOST_FULL
 
+
 class StationTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -53,7 +54,7 @@ class StationTestCase(unittest.TestCase):
 
     def test_GetStationsAround(self):
         Cartography.synchronize(TEST_XML_URL_DATA_STATION)
-        
+
         station = Station(self.velib_id)
 
         stations_around = station.stations_around
@@ -87,5 +88,5 @@ class StationTestCase(unittest.TestCase):
         station.informations.opened = False
         self.assertEquals(station.state, STATUS_CLOSE)
 
-        
+
 suite = unittest.TestLoader().loadTestsFromTestCase(StationTestCase)

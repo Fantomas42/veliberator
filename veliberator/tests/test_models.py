@@ -1,8 +1,6 @@
 """Unit tests for models object"""
 import unittest
 
-from elixir import session
-
 from veliberator.models import StationInformation
 
 
