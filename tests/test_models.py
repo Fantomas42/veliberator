@@ -1,7 +1,9 @@
 """Unit tests for models object"""
 import unittest
 
-from veliberator.models import StationInformation, session
+from elixir import session
+
+from veliberator.models import StationInformation
 
 
 class StationInformationTestCase(unittest.TestCase):
@@ -11,7 +13,7 @@ class StationInformationTestCase(unittest.TestCase):
 
     def test_UpdateOrCreate(self):
         self.assertEquals(StationInformation.query.count(), 0)
-        
+
         values = {'id': 42,
                   'address': '1 rue Kennedy',
                   'postal_code': '94200',
@@ -28,7 +30,7 @@ class StationInformationTestCase(unittest.TestCase):
         station = StationInformation.update_or_create(values, surrogate=False)
         self.assertEquals(StationInformation.query.count(), 1)
         self.assertEquals(station.postal_code, '75000')
-        
+
         values['id'] = 43
         station = StationInformation.update_or_create(values, surrogate=False)
         self.assertEquals(StationInformation.query.count(), 2)
@@ -45,5 +47,5 @@ class StationInformationTestCase(unittest.TestCase):
                   'bonus': False}
         station = StationInformation.update_or_create(values, surrogate=False)
         self.assertEquals(station.full_address, '1 rue Kennedy, 94200 Paris')
-        
+
 suite = unittest.TestLoader().loadTestsFromTestCase(StationInformationTestCase)
