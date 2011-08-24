@@ -1,7 +1,16 @@
 """Models for database"""
 from datetime import datetime
 
-from elixir import *
+from elixir import Field
+from elixir import Entity
+from elixir import String
+from elixir import Integer
+from elixir import Boolean
+from elixir import DateTime
+from elixir import metadata
+from elixir import setup_all
+from elixir import create_all
+from elixir import using_options
 
 from veliberator.settings import DATABASE_URI, DATABASE_ECHO
 
@@ -12,7 +21,7 @@ class StationInformation(Entity):
     address = Field(String(100))
     postal_code = Field(String(100))
     city = Field(String(100))
-    
+
     lat = Field(String(30))
     lng = Field(String(30))
 
