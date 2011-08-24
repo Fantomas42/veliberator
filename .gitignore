@@ -1,6 +1,7 @@
 *~
 *\#
 *.pyc
+.noseids
 bin/
 lib/
 dist/
