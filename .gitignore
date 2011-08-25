@@ -6,6 +6,7 @@ bin/
 lib/
 dist/
 eggs/
+.tox/
 include/
 docs/build/
 develop-eggs/
