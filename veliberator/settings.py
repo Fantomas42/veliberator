@@ -15,6 +15,11 @@ STATION_ALMOST_FULL = config.getint('STATION', 'almost_full')
 STATION_ALMOST_EMPTY = config.getint('STATION', 'almost_empty')
 
 DATABASE_URI = config.get('DATABASE', 'uri')
+if '~' in DATABASE_URI:
+    protocol, source = DATABASE_URI.split('~')
+    DATABASE_URI = '%s%s' % (protocol, os.path.expanduser('~' + source))
+
+
 DATABASE_ECHO = config.getboolean('DATABASE', 'echo')
 
 TEST_XML_URL_DATA_STATION = config.get('TEST', 'url_data_station')
