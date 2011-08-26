@@ -37,7 +37,7 @@ setup(
     platforms='any',
     include_package_data=True,
 
-    install_requires=['SQLAlchemy>=0.5',
-                      'Elixir>=0.7.0',
-                      'simplejson>=2.0.9'],
+    install_requires=['SQLAlchemy>=0.7.2',
+                      'Elixir>=0.7.1',
+                      'simplejson>=2.1.6'],
     )

@@ -18,7 +18,6 @@ class StationTestCase(unittest.TestCase):
         self.informations = StationInformation(id=self.velib_id,
                                                address='Test',
                                                bonus=True, opened=True)
-        self.informations.save()
 
     def tearDown(self):
         self.informations = None
