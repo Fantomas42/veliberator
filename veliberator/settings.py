@@ -4,9 +4,8 @@ from ConfigParser import SafeConfigParser
 
 config = SafeConfigParser()
 
-config.read([os.path.join('/etc', 'veliberator.cfg'),
-             os.path.expanduser('~/.veliberator.cfg'),
-             os.path.join('etc', 'veliberator.cfg')])
+config_read = config.read([os.path.expanduser('~/.veliberator.cfg'),
+                           os.path.join(os.getcwd(), 'etc/veliberator.cfg')])
 
 XML_URL_DATA_STATION = config.get('XML', 'url_data_station')
 XML_URL_STATUS_STATION = config.get('XML', 'url_status_station')
