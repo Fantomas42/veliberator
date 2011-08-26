@@ -8,9 +8,11 @@ dist/
 eggs/
 .tox/
 include/
+coverage/
 docs/build/
 develop-eggs/
 TODO
+.coverage
 .installed.cfg
 veliberator.db
 veliberator.egg-info/
