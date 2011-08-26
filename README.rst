@@ -1,8 +1,8 @@
 Veliberator
 ===========
 
-**Veliberator** is a Python module providing an API for getting
-informations about the stations of the Velib' bike renting network.
+**Veliberator** is a Python module who provides an API for getting the
+informations related to the stations of the Velib' bike renting network.
 
 
 .. contents::
@@ -13,7 +13,7 @@ API Usage
 To retrieve the informations of a station you only have to have the ID of
 the station and a database synchronized with all the available stations.
 
-Then in your python interpreter:
+Then in your Python interpreter you can play with the API:
 ::
     >>> from veliberator.stations import Station
     >>> station = Station(42008)
@@ -42,8 +42,7 @@ You could retrieve the live status of the station easily:
     >>> station.status.closed
     0
 
-More useful, you can retrieve the closest stations around sorted by
-distance:
+More useful, you can retrieve the closest stations sorted by distance:
 ::
 
     >>> station.stations_around
@@ -52,8 +51,8 @@ distance:
 The **veliberator** script
 --------------------------
 
-Writing an API for developers is a nice idea, but writing an useful script
-implementing the API for the end-user is a much nicer idea.
+Write an API for developers is a nice idea, but write an useful script
+who uses the API for the end-user is a much nicer idea.
 
 So the package provide a script named ``veliberator``.
 
@@ -70,9 +69,9 @@ The ``veliberator`` script can also find the Velib' stations around an
 address, by simply launching the script.
 
 Note that at the first run of the script a database will be created for
-registering all the available Velib' stations.
+registering all the available stations.
 
-For updating or creating the database you can run this command:
+For update or create the database you can run this command:
 ::
 
   $ veliberator --synchronize
