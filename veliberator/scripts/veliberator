@@ -62,8 +62,7 @@ if __name__ == '__main__':
         db_connection(options.database)
     except sqlalchemy.exc.OperationalError:
         if options.synchronize:
-            print '-> Database %s innacessible.' % options.database
-            sys.exit(1)
+            sys.exit('-> Database %s innacessible.' % options.database)
         else:
             print '-> Database innacessible, switch sur la RAM.'
             print '-> Modifiez le fichier de configuration, ' \
