@@ -1,4 +1,5 @@
 """Geo localizator objects"""
+from functools import wraps
 from math import sqrt, radians, sin, cos, atan2, pi
 from urllib import quote_plus
 from urllib import urlopen
@@ -15,6 +16,7 @@ global_geofinder_cache = {}
 
 
 def cache_wrapper(method):
+    @wraps(method)
     def cache(instance, around_radius):
         """Use a global cache for the results
         of stations around"""

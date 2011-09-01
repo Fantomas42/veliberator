@@ -1,4 +1,5 @@
 """Status objects for veliberator"""
+from functools import wraps
 from datetime import datetime, timedelta
 from xml.dom.minidom import parseString
 from xml.parsers.expat import ExpatError
@@ -12,6 +13,7 @@ global_stationstatus_cache = {}
 
 
 def cache_wrapper(method):
+    @wraps(method)
     def cache(instance):
         """Use a timed cache for result, and set
         the results into the instance"""
