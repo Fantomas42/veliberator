@@ -10,6 +10,7 @@ config_read = config.read([os.path.expanduser('~/.veliberator.cfg'),
 XML_URL_DATA_STATION = config.get('XML', 'url_data_station')
 XML_URL_STATUS_STATION = config.get('XML', 'url_status_station')
 
+STATION_AROUND_RADIUS = config.getint('STATION', 'around_radius')
 STATION_STATUS_RECENT = config.getint('STATION', 'status_recent')
 STATION_ALMOST_FULL = config.getint('STATION', 'almost_full')
 STATION_ALMOST_EMPTY = config.getint('STATION', 'almost_empty')
