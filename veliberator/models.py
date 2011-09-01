@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from elixir import Field
+from elixir import Float
 from elixir import Entity
 from elixir import String
 from elixir import Integer
@@ -23,8 +24,8 @@ class StationInformation(Entity):
     postal_code = Field(String(100))
     city = Field(String(100))
 
-    lat = Field(String(30))
-    lng = Field(String(30))
+    lat = Field(Float)
+    lng = Field(Float)
 
     opened = Field(Boolean)
     bonus = Field(Boolean)

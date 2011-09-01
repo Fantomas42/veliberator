@@ -20,18 +20,22 @@ class BaseGeoFinderTestCase(unittest.TestCase):
     def test_ComputeSquareArea(self):
         finder = BaseGeoFinder(1, 1)
         self.assertEquals(finder.compute_square_area(STATION_AROUND_RADIUS),
-                          (('0.989220216591', '1.0', '1.01077978341'),
-                           ('0.989220216591', '1.0', '1.01077978341')))
+                          ((0.98922021659056569, 1.0, 1.0107797834094343),
+                           (0.98922021659056569, 1.0, 1.0107797834094343)))
         finder.lat = '1'
         finder.lng = '1'
         self.assertEquals(finder.compute_square_area(STATION_AROUND_RADIUS),
-                          (('0.989220216591', '1.0', '1.01077978341'),
-                           ('0.989220216591', '1.0', '1.01077978341')))
+                          ((0.98922021659056569, 1.0, 1.0107797834094343),
+                           (0.98922021659056569, 1.0, 1.0107797834094343)))
         finder.lat = 4.897645
         finder.lng = 18.798923
         self.assertEquals(finder.compute_square_area(STATION_AROUND_RADIUS),
-                          (('4.88686521659', '4.897645', '4.90842478341'),
-                           ('18.7881432166', '18.798923', '18.8097027834')))
+                          ((4.8868652165905653,
+                            4.8976449999999998,
+                            4.9084247834094343),
+                           (18.788143216590566,
+                            18.798922999999998,
+                            18.809702783409431)))
 
     def test_ComputeStationDistances(self):
         finder = BaseGeoFinder(1, 1)

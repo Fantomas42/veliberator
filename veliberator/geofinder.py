@@ -81,8 +81,8 @@ class BaseGeoFinder(object):
         lng_pos = lng_orig + radius_degree
         lng_neg = lng_orig - radius_degree
 
-        return (str(lat_neg), str(lat_orig), str(lat_pos)), \
-               (str(lng_neg), str(lng_orig), str(lng_pos))
+        return (lat_neg, lat_orig, lat_pos), \
+               (lng_neg, lng_orig, lng_pos)
 
     def compute_station_distances(self, stations,
                                   distance_function=haversine_distance):
