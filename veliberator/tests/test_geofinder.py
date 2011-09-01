@@ -12,24 +12,26 @@ from veliberator.models import StationInformation
 from veliberator.cartography import Cartography
 from veliberator.settings import TEST_XML_URL_DATA_STATION
 
+STATION_AROUND_RADIUS = 1200
+
 
 class BaseGeoFinderTestCase(unittest.TestCase):
 
     def test_ComputeSquareArea(self):
         finder = BaseGeoFinder(1, 1)
-        self.assertEquals(finder.compute_square_area(),
-                          (('0.99', '1.00', '1.01'),
-                           ('0.99', '1.00', '1.01')))
+        self.assertEquals(finder.compute_square_area(STATION_AROUND_RADIUS),
+                          (('0.989220216591', '1.0', '1.01077978341'),
+                           ('0.989220216591', '1.0', '1.01077978341')))
         finder.lat = '1'
         finder.lng = '1'
-        self.assertEquals(finder.compute_square_area(),
-                          (('0.99', '1.00', '1.01'),
-                           ('0.99', '1.00', '1.01')))
+        self.assertEquals(finder.compute_square_area(STATION_AROUND_RADIUS),
+                          (('0.989220216591', '1.0', '1.01077978341'),
+                           ('0.989220216591', '1.0', '1.01077978341')))
         finder.lat = 4.897645
         finder.lng = 18.798923
-        self.assertEquals(finder.compute_square_area(),
-                          (('4.89', '4.90', '4.91'),
-                           ('18.79', '18.80', '18.81')))
+        self.assertEquals(finder.compute_square_area(STATION_AROUND_RADIUS),
+                          (('4.88686521659', '4.897645', '4.90842478341'),
+                           ('18.7881432166', '18.798923', '18.8097027834')))
 
     def test_ComputeStationDistances(self):
         finder = BaseGeoFinder(1, 1)
@@ -68,21 +70,23 @@ class BaseGeoFinderTestCase(unittest.TestCase):
         Cartography.synchronize(TEST_XML_URL_DATA_STATION)
 
         finder = BaseGeoFinder(1, 1)
-        self.assertEquals(len(finder.get_stations_around()), 0)
+        self.assertEquals(len(finder.get_stations_around(
+            STATION_AROUND_RADIUS)), 0)
 
         finder.lat = 48.81
         finder.lng = 2.38
         self.assertEquals(
-            [station.id for station in finder.get_stations_around()],
+            [station.id for station in
+             finder.get_stations_around(STATION_AROUND_RADIUS)],
             [42012, 42010, 42009, 42008, 42016, 42006, 42007, 42015])
 
         Cartography.flush()
 
     def test_Cache(self):
-        key = (1, 1)
+        key = (1, 1, STATION_AROUND_RADIUS)
         self.assertFalse(key in global_geofinder_cache)
         finder = BaseGeoFinder(key[0], key[1])
-        finder.get_stations_around()
+        finder.get_stations_around(key[2])
         self.assertTrue(key in global_geofinder_cache)
 
 

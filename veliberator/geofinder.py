@@ -1,5 +1,5 @@
 """Geo localizator objects"""
-from math import sqrt, radians, sin, cos, atan2
+from math import sqrt, radians, sin, cos, atan2, pi
 from urllib import quote_plus
 from urllib import urlopen
 
@@ -7,18 +7,22 @@ import simplejson as json
 
 from veliberator.models import StationInformation
 
+EARTH_RADIUS = 6378137.0  # Earth radius in meters
+EARTH_CIRCUMFERENCE = EARTH_RADIUS * 2 * pi
+EARTH_METER_DEGREE = 360.0 / EARTH_CIRCUMFERENCE
+
 global_geofinder_cache = {}
 
 
 def cache_wrapper(method):
-    def cache(instance):
+    def cache(instance, around_radius):
         """Use a global cache for the results
         of stations around"""
         global global_geofinder_cache
 
-        key_cache = (instance.lat, instance.lng)
+        key_cache = (instance.lat, instance.lng, around_radius)
         if not key_cache in global_geofinder_cache.keys():
-            global_geofinder_cache[key_cache] = method(instance)
+            global_geofinder_cache[key_cache] = method(instance, around_radius)
 
         return global_geofinder_cache[key_cache]
     return cache
@@ -35,8 +39,6 @@ def pythagor_distance(start, end):
 def haversine_distance(start, end):
     """Compute the distance between 2 points in meters
     with the haversine formula"""
-    radius = float(6378137)  # Earth radius in meters
-
     start_long = radians(float(start[0]))
     start_latt = radians(float(start[1]))
     end_long = radians(float(end[0]))
@@ -47,7 +49,7 @@ def haversine_distance(start, end):
         cos(end_latt) * sin(d_long / 2) ** 2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-    return radius * c
+    return EARTH_RADIUS * c
 
 
 class GeoFinderError(Exception):
@@ -60,26 +62,25 @@ class BaseGeoFinder(object):
     lat = None
     lng = None
 
-    PRECISION = '%.2f'
-    SQUARE_SIZE = 0.01
-
     def __init__(self, lat, lng):
         self.lat = lat
         self.lng = lng
 
-    def compute_square_area(self):
-        """Round the GPS coordonates to a wide area"""
+    def compute_square_area(self, radius):
+        """Compute the GPS coordonates of a square,
+        around the position"""
+        radius_degree = radius * EARTH_METER_DEGREE
+
         lat_orig = float(self.lat)
-        lat_pos = self.PRECISION % (lat_orig + self.SQUARE_SIZE)
-        lat_neg = self.PRECISION % (lat_orig - self.SQUARE_SIZE)
-        lat_orig = self.PRECISION % lat_orig
+        lat_pos = lat_orig + radius_degree
+        lat_neg = lat_orig - radius_degree
 
         lng_orig = float(self.lng)
-        lng_pos = self.PRECISION % (lng_orig + self.SQUARE_SIZE)
-        lng_neg = self.PRECISION % (lng_orig - self.SQUARE_SIZE)
-        lng_orig = self.PRECISION % lng_orig
+        lng_pos = lng_orig + radius_degree
+        lng_neg = lng_orig - radius_degree
 
-        return (lat_neg, lat_orig, lat_pos), (lng_neg, lng_orig, lng_pos)
+        return (str(lat_neg), str(lat_orig), str(lat_pos)), \
+               (str(lng_neg), str(lng_orig), str(lng_pos))
 
     def compute_station_distances(self, stations,
                                   distance_function=haversine_distance):
@@ -109,10 +110,10 @@ class BaseGeoFinder(object):
             (StationInformation.lng <= lngs[2])).all()
 
     @cache_wrapper
-    def get_stations_around(self):
+    def get_stations_around(self, around_radius):
         """Find the stations around the lat and lng,
         sorted by proximity"""
-        lats, lngs = self.compute_square_area()
+        lats, lngs = self.compute_square_area(around_radius)
         stations = self.get_stations_in_area(lats, lngs)
         stations_distanced = self.compute_station_distances(stations)
 

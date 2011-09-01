@@ -5,6 +5,7 @@ from veliberator.status import StationStatus
 from veliberator.geofinder import StationGeoFinder
 from veliberator.settings import STATION_ALMOST_FULL
 from veliberator.settings import STATION_ALMOST_EMPTY
+from veliberator.settings import STATION_AROUND_RADIUS
 
 STATUS_OPEN = u'open'
 STATUS_CLOSE = u'close'
@@ -67,7 +68,7 @@ class Station(object):
     @property
     def stations_around(self):
         """Find the stations around"""
-        return self.finder.get_stations_around()
+        return self.finder.get_stations_around(STATION_AROUND_RADIUS)
 
     @property
     def state(self):
