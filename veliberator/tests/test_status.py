@@ -23,6 +23,7 @@ class StationStatusTestCase(unittest.TestCase):
         self.assertTrue(isinstance(status.available, int))
         self.assertTrue(isinstance(status.free, int))
         self.assertTrue(isinstance(status.closed, int))
+        self.assertRaises(AttributeError, status.__getattr__, 'invalid_attr')
 
     def test_Cache(self):
         global global_stationstatus_cache
@@ -45,6 +46,10 @@ class StationStatusTestCase(unittest.TestCase):
         status = StationStatus(self.velib_id - 1, 'http://example.com/badurl')
         self.assertTrue(isinstance(status.get_status(), dict))
         self.assertEquals(status.free, 0)
+
+    def test_repr(self):
+        status = StationStatus(self.velib_id)
+        self.assertEquals(repr(status), '<StationStatus "42008">')
 
 
 suite = unittest.TestLoader().loadTestsFromTestCase(StationStatusTestCase)

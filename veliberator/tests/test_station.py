@@ -87,5 +87,10 @@ class StationTestCase(unittest.TestCase):
         station.informations.opened = False
         self.assertEquals(station.state, STATUS_CLOSE)
 
+    def test_repr(self):
+        station = Station(self.velib_id)
+        self.assertEquals(repr(station), '<Station "42008" (Test)>')
+        station.informations = None
+        self.assertEquals(repr(station), '<Station "42008">')
 
 suite = unittest.TestLoader().loadTestsFromTestCase(StationTestCase)

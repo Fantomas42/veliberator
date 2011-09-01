@@ -46,4 +46,18 @@ class StationInformationTestCase(unittest.TestCase):
         station = StationInformation.update_or_create(values, surrogate=False)
         self.assertEquals(station.full_address, '1 rue Kennedy, 94200 Paris')
 
+    def test_repr(self):
+        values = {'id': 42,
+                  'address': '1 rue Kennedy',
+                  'postal_code': '94200',
+                  'city': 'Paris',
+                  'lat': '42.000000000',
+                  'lng': '42.000000000',
+                  'opened': True,
+                  'bonus': False}
+        station = StationInformation.update_or_create(values, surrogate=False)
+        self.assertEquals(repr(station),
+                          '<StationInformation "42" (1 rue Kennedy)>')
+
+
 suite = unittest.TestLoader().loadTestsFromTestCase(StationInformationTestCase)

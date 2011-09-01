@@ -56,7 +56,7 @@ class StationStatus(object):
         """Allow direct access to self.status items"""
         if name in self.status:
             return self.status.get(name)
-        return getattr(self, name)
+        raise AttributeError(name)
 
     def __repr__(self):
         return '<StationStatus "%s">' % self.velib_id
