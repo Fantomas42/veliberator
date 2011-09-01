@@ -11,6 +11,7 @@ from veliberator.models import StationInformation
 EARTH_RADIUS = 6378137.0  # Earth radius in meters
 EARTH_CIRCUMFERENCE = EARTH_RADIUS * 2 * pi
 EARTH_METER_DEGREE = 360.0 / EARTH_CIRCUMFERENCE
+EARTH_DEGREE_METER = EARTH_CIRCUMFERENCE / 360.0
 
 global_geofinder_cache = {}
 
@@ -35,7 +36,7 @@ def pythagor_distance(start, end):
     with Pythagor theorem"""
     l1 = float(start[0]) - float(end[0])
     l2 = float(start[1]) - float(end[1])
-    return sqrt(pow(l1, 2) + pow(l2, 2))
+    return sqrt(pow(l1, 2) + pow(l2, 2)) * EARTH_DEGREE_METER
 
 
 def haversine_distance(start, end):
