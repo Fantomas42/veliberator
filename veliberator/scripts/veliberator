@@ -50,7 +50,7 @@ if __name__ == '__main__':
                       help='The SQLURI of the database', default=DATABASE_URI)
     parser.add_option('-p', '--places', dest='places', type='int',
                       help='The number of places you want', default=1)
-    parser.add_option('-m', '--max_stations', dest='max_stations', type='int',
+    parser.add_option('-m', '--max-stations', dest='max_stations', type='int',
                       help='The maximun stations around proposed', default=5)
     parser.add_option('--synchronize', dest='synchronize', action='store_true',
                       help='Only do a synchronization of the cartography')
