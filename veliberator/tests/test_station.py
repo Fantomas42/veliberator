@@ -1,6 +1,8 @@
 """Unit tests for Station object"""
+import os
 import unittest
 
+from veliberator.geofinder import haversine_distance
 from veliberator.settings import TEST_XML_URL_DATA_STATION
 from veliberator.station import UnknowStation, Station
 from veliberator.models import StationInformation
@@ -92,5 +94,19 @@ class StationTestCase(unittest.TestCase):
         self.assertEquals(repr(station), '<Station "42008" (Test)>')
         station.informations = None
         self.assertEquals(repr(station), '<Station "42008">')
+
+    def test_my_strange_experiment(self):
+        carto = os.path.join(os.path.dirname(__file__), 'data/carto.xml')
+        Cartography.synchronize('file:%s' % carto)
+
+        station = Station(self.velib_id)
+        around = station.stations_around
+
+        coords = ((station.informations.lng, station.informations.lat),
+                  (around[-1].lng, around[-1].lat))
+
+        self.assertEquals(haversine_distance(*coords), around[-1].distance)
+
+        Cartography.flush()
 
 suite = unittest.TestLoader().loadTestsFromTestCase(StationTestCase)
