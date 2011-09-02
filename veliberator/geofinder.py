@@ -42,10 +42,10 @@ def pythagor_distance(start, end):
 def haversine_distance(start, end):
     """Compute the distance between 2 points in meters
     with the haversine formula"""
-    start_long = radians(float(start[0]))
-    start_latt = radians(float(start[1]))
-    end_long = radians(float(end[0]))
-    end_latt = radians(float(end[1]))
+    start_latt = radians(float(start[0]))
+    start_long = radians(float(start[1]))
+    end_latt = radians(float(end[0]))
+    end_long = radians(float(end[1]))
     d_latt = end_latt - start_latt
     d_long = end_long - start_long
     a = sin(d_latt / 2) ** 2 + cos(start_latt) * \
@@ -119,7 +119,6 @@ class BaseGeoFinder(object):
         lats, lngs = self.compute_square_area(around_radius)
         stations = self.get_stations_in_area(lats, lngs)
         stations_distanced = self.compute_station_distances(stations)
-
         return stations_distanced
 
 

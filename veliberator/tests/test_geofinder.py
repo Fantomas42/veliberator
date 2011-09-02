@@ -47,7 +47,8 @@ class BaseGeoFinderTestCase(unittest.TestCase):
         si2 = StationInformation(id=43, lat=4, lng=5)
         result = finder.compute_station_distances([si2])
         self.assertEquals(result, [si2])
-        self.assertEquals(result[0].distance, 556281.9630214232)
+
+        self.assertEquals(result[0].distance, 556217.45145026874)
         result = finder.compute_station_distances([si2], pythagor_distance)
         self.assertEquals(result[0].distance, 556597.45396636787)
 
