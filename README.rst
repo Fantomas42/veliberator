@@ -84,8 +84,11 @@ Run this command for more informations:
 Settings
 --------
 
-The veliberator module has a configuration file needed for running, this
-file contains all the options of the module.
+The veliberator module can be configured by a configuration file.
+Take a look on the file ``etc/veliberator-sample.cfg`` for having a example
+of the options availables.
 
-So you can change the options of the module and the script simply by editing
-the ``.veliberator.cfg`` file located in your home directory.
+The module is going to look in your home directory if a file named
+``.veliberator.cfg`` is present and in ``etc/veliberator.cfg`` from your
+current working directory.
+
