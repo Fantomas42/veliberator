@@ -29,7 +29,6 @@ setup(
         ],
 
     scripts=['./veliberator/scripts/veliberator'],
-    data_files=[(os.path.expanduser('~'), ['etc/.veliberator.cfg'])],
     test_suite='veliberator.tests.global_test_suite',
     packages=find_packages(exclude=['tests']),
 
