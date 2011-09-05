@@ -23,7 +23,8 @@ if '~' in DATABASE_URI:
 
 DATABASE_ECHO = config.getboolean('DATABASE', 'echo')
 
-TEST_XML_URL_DATA_STATION = config.get('TEST', 'url_data_station')
-
 PROXY_SERVERS = config.get('PROXY', 'servers')
 PROXY_SERVERS = PROXY_SERVERS and PROXY_SERVERS.split(';') or []
+
+TEST_XML_URL_DATA_STATION = 'file:%s' % os.path.join(
+    os.path.dirname(__file__), 'tests', 'data', 'carto_short.xml')
