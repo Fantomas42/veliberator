@@ -6,4 +6,3 @@ recursive-include docs *
 recursive-include etc *
 recursive-include veliberator *
 prune docs/build
-
