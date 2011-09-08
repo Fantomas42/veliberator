@@ -1,5 +1,5 @@
 """Veliberator module"""
-__version__ = '0.3'
+__version__ = '0.3.1dev'
 __license__ = 'BSD License'
 
 __author__ = 'Fantomas42'
