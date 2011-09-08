@@ -1,7 +1,6 @@
 """Unit tests for Station object"""
 import unittest
 
-from veliberator import station as settings
 from veliberator.geofinder import haversine_distance
 from veliberator.settings import TEST_XML_URL_DATA_STATION
 from veliberator.station import UnknowStation, Station
@@ -54,10 +53,10 @@ class StationTestCase(unittest.TestCase):
         self.assertFalse(station.is_available(7))
 
     def test_GetStationsAround(self):
-        settings.STATION_AROUND_RADIUS = 1200
         Cartography.synchronize(TEST_XML_URL_DATA_STATION)
 
         station = Station(self.velib_id)
+        station.around_radius = 1200
 
         stations_around = station.stations_around
         self.assertEquals(len(stations_around), 9)

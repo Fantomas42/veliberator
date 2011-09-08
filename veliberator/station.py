@@ -25,6 +25,7 @@ class UnknowStation(Exception):
 class Station(object):
     """Station object,
     combinating informations and status"""
+    around_radius = STATION_AROUND_RADIUS
 
     def __init__(self, velib_id):
         self.id = int(velib_id)
@@ -68,7 +69,7 @@ class Station(object):
     @property
     def stations_around(self):
         """Find the stations around"""
-        return self.finder.get_stations_around(STATION_AROUND_RADIUS)
+        return self.finder.get_stations_around(self.around_radius)
 
     @property
     def state(self):
