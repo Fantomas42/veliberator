@@ -1,5 +1,7 @@
 #!/usr/bin/python
+import os
 import sys
+import gettext
 from optparse import OptionParser
 
 import sqlalchemy
@@ -13,6 +15,9 @@ from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import AddressGeoFinder
 from veliberator.models import StationInformation
 
+
+gettext.install('veliberator', os.path.join(os.path.dirname(__file__),
+                                            '..', 'locale'))
 
 def synchronization():
     print _('-> Online synchronization...')

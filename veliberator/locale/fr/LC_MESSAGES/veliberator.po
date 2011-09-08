@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: veliberator\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-08 14:35+0200\n"
-"PO-Revision-Date: 2011-09-08 14:40+0100\n"
+"POT-Creation-Date: 2011-09-08 16:42+0200\n"
+"PO-Revision-Date: 2011-09-08 16:44+0100\n"
 "Last-Translator: Fantomas <Fantomas42@gmail.com>\n"
 "Language-Team: Fantomas42 <fantomas42@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "Le maximum de stations aux alentours proposées"
 
 #: veliberator/scripts/veliberator:56
 msgid "Only do a synchronization of the cartography"
-msgstr "Seulement faire une synchronisation de la cartography"
+msgstr "Seulement faire une synchronisation de la cartographie"
 
 #: veliberator/scripts/veliberator:65
 #, python-format
