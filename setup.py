@@ -15,7 +15,8 @@ setup(
     author_email=veliberator.__email__,
     url=veliberator.__url__,
 
-    description='Python API for Velib.',
+    description="Veliberator provides a Python API for getting informations" \
+    " about the stations of the Velib' network.",
     long_description=open(os.path.join('README.rst')).read(),
     keywords='velib, api, service',
 

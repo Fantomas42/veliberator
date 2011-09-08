@@ -15,6 +15,7 @@ the station and a database synchronized with all the available stations.
 
 Then in your Python interpreter you can play with the API:
 ::
+
     >>> from veliberator.stations import Station
     >>> station = Station(42008)
     >>> station.informations.address
