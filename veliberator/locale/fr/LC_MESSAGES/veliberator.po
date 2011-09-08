@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: veliberator\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-08 17:18+0200\n"
-"PO-Revision-Date: 2011-09-08 17:20+0100\n"
+"POT-Creation-Date: 2011-09-08 17:57+0200\n"
+"PO-Revision-Date: 2011-09-08 17:57+0100\n"
 "Last-Translator: Fantomas <Fantomas42@gmail.com>\n"
 "Language-Team: Fantomas42 <fantomas42@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,76 +19,80 @@ msgstr ""
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: veliberator/scripts/veliberator:24
+#: veliberator/scripts/veliberator:26
 msgid "-> Online synchronization..."
 msgstr "-> Synchronisation en ligne..."
 
-#: veliberator/scripts/veliberator:26
+#: veliberator/scripts/veliberator:28
 msgid "-> Synchronization complete !"
 msgstr "-> Synchronisation complète !"
 
-#: veliberator/scripts/veliberator:30
+#: veliberator/scripts/veliberator:32
 #, python-format
 msgid "Station '%s'"
 msgstr "Station '%s'"
 
-#: veliberator/scripts/veliberator:32
+#: veliberator/scripts/veliberator:34
 #, python-format
 msgid "%(address)s (%(distance).2fm)"
 msgstr "%(address)s (%(distance).2fm)"
 
-#: veliberator/scripts/veliberator:38
+#: veliberator/scripts/veliberator:40
 #, python-format
 msgid "%(available)s/%(total)s bike available"
 msgid_plural "%(available)s/%(total)s bikes available"
 msgstr[0] "%(available)s/%(total)s vélo disponible"
 msgstr[1] "%(available)s/%(total)s vélos disponibles"
 
-#: veliberator/scripts/veliberator:43
+#: veliberator/scripts/veliberator:45
 #, python-format
 msgid "%s parking place"
 msgid_plural "%s parking places"
 msgstr[0] "%s place libre"
 msgstr[1] "%s places libres"
 
-#: veliberator/scripts/veliberator:63
+#: veliberator/scripts/veliberator:65
 msgid "The SQLURI of the database"
 msgstr "La SQLURI de la base de donnée"
 
-#: veliberator/scripts/veliberator:65
+#: veliberator/scripts/veliberator:68
 msgid "The number of places you want"
 msgstr "Le nombre de places désirées"
 
-#: veliberator/scripts/veliberator:67
+#: veliberator/scripts/veliberator:70
 msgid "The maximun stations around proposed"
 msgstr "Le maximum de stations aux alentours proposées"
 
-#: veliberator/scripts/veliberator:69
+#: veliberator/scripts/veliberator:73
 msgid "Only do a synchronization of the cartography"
 msgstr "Seulement faire une synchronisation de la cartographie"
 
-#: veliberator/scripts/veliberator:78
+#: veliberator/scripts/veliberator:82
 #, python-format
 msgid "-> The database %s is unreachable."
 msgstr "-> La base de donnée %s est inaccessible."
 
-#: veliberator/scripts/veliberator:81
+#: veliberator/scripts/veliberator:85
 msgid "-> The database is unreachable, switch on RAM."
 msgstr "-> La base de donnée est inaccessible, passage sur la RAM."
 
-#: veliberator/scripts/veliberator:82
+#: veliberator/scripts/veliberator:86
 msgid "-> Edit the configuration file, for removing this message."
 msgstr "-> Éditez le fichier de configuration, pour enlever ce message."
 
-#: veliberator/scripts/veliberator:96
+#: veliberator/scripts/veliberator:100
 msgid "Station ID or complete address:\n"
 msgstr "Identifiant de la station ou une adresse complète :\n"
 
-#: veliberator/scripts/veliberator:102
+#: veliberator/scripts/veliberator:106
+msgid "The Station ID does not exist."
+msgstr "L'identifiant de la station n'existe pas."
+
+#: veliberator/scripts/veliberator:109
 msgid "Searching on the closest stations..."
 msgstr "Recherche sur les stations les plus proches..."
 
-#: veliberator/scripts/veliberator:109
+#: veliberator/scripts/veliberator:116
 msgid "The provided address is not valid or imprecise."
 msgstr "L'adresse fournie n'est pas valide ou imprécise."
 

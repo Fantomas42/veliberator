@@ -8,6 +8,7 @@ import sqlalchemy
 
 import veliberator
 from veliberator.station import Station
+from veliberator.station import UnknowStation
 from veliberator.cartography import Cartography
 from veliberator.models import db_connection
 from veliberator.settings import DATABASE_URI
@@ -17,7 +18,7 @@ from veliberator.models import StationInformation
 
 
 gettext.install('veliberator', os.path.join(
-    os.path.dirname(__file__), '..', 'locale'),
+    os.path.dirname(veliberator.__file__), 'locale'),
                 names='ngettext')
 
 
@@ -99,7 +100,10 @@ if __name__ == '__main__':
         user_input = raw_input(_('Station ID or complete address:\n'))
 
     if user_input.isdigit():
-        station = Station(user_input)
+        try:
+            station = Station(user_input)
+        except UnknowStation:
+            sys.exit(_('The Station ID does not exist.'))
         show_status(station)
         if not station.is_free(options.places):
             print _('Searching on the closest stations...')
