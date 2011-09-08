@@ -16,8 +16,10 @@ from veliberator.geofinder import AddressGeoFinder
 from veliberator.models import StationInformation
 
 
-gettext.install('veliberator', os.path.join(os.path.dirname(__file__),
-                                            '..', 'locale'))
+gettext.install('veliberator', os.path.join(
+    os.path.dirname(__file__), '..', 'locale'),
+                names='ngettext')
+
 
 def synchronization():
     print _('-> Online synchronization...')
@@ -28,12 +30,19 @@ def synchronization():
 def show_status(station, distance=None):
     print _("Station '%s'") % station.id
     if distance:
-        print _('%s (%.2fm)') % (station.informations.full_address, distance)
+        print _('%(address)s (%(distance).2fm)') % {
+            'address': station.informations.full_address,
+            'distance': distance}
     else:
         print station.informations.full_address
-    print _('%s/%s velo(s) disponible') % (station.status.available,
-                                        station.status.total)
-    print _('%s place(s) disponible') % station.status.free
+
+    print ngettext('%(available)s/%(total)s bike available',
+                   '%(available)s/%(total)s bikes available',
+                   station.status.available) % {
+        'available': station.status.available,
+        'total': station.status.total}
+    print ngettext('%s parking place', '%s parking places',
+                   station.status.free) % station.status.free
 
 
 def display_free_stations(stations, places, max_display):
@@ -52,11 +61,13 @@ def display_free_stations(stations, places, max_display):
 if __name__ == '__main__':
     parser = OptionParser(usage='usage: %prog [station_id] [options]')
     parser.add_option('-d', '--database', dest='database',
-                      help=_('The SQLURI of the database'), default=DATABASE_URI)
+                      help=_('The SQLURI of the database'),
+                      default=DATABASE_URI)
     parser.add_option('-p', '--places', dest='places', type='int',
                       help=_('The number of places you want'), default=1)
     parser.add_option('-m', '--max-stations', dest='max_stations', type='int',
-                      help=_('The maximun stations around proposed'), default=5)
+                      help=_('The maximun stations around proposed'),
+                      default=5)
     parser.add_option('--synchronize', dest='synchronize', action='store_true',
                       help=_('Only do a synchronization of the cartography'))
     (options, args) = parser.parse_args()
