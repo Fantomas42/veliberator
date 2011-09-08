@@ -12,6 +12,7 @@ from veliberator.station import UnknowStation
 from veliberator.cartography import Cartography
 from veliberator.models import db_connection
 from veliberator.settings import DATABASE_URI
+from veliberator.settings import STATION_AROUND_RADIUS
 from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import AddressGeoFinder
 from veliberator.models import StationInformation
@@ -114,5 +115,5 @@ if __name__ == '__main__':
             finder = AddressGeoFinder(user_input)
         except GeoFinderError:
             sys.exit(_('The provided address is not valid or imprecise.'))
-        display_free_stations(finder.get_stations_around(),
+        display_free_stations(finder.get_stations_around(STATION_AROUND_RADIUS),
                               options.places, options.max_stations)
