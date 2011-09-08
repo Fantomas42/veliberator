@@ -24,9 +24,9 @@ docs:
 
 translations:
 	@echo "$(COLOR)* Generating translation template$(NO_COLOR)"
-	xgettext --language=Python --keyword=_ --from-code utf-8 --output=veliberator/locale/veliberator.pot ./veliberator/scripts/veliberator
+	@xgettext --language=Python --keyword=_ --from-code utf-8 --output=veliberator/locale/veliberator.pot ./veliberator/scripts/veliberator
 	@echo "$(COLOR)* Merge the translations$(NO_COLOR)"
-	msgmerge -o veliberator/locale/fr/LC_MESSAGES/veliberator.po veliberator/locale/fr/LC_MESSAGES/veliberator.po veliberator/locale/veliberator.pot
+	@msgmerge -o veliberator/locale/fr/LC_MESSAGES/veliberator.po veliberator/locale/fr/LC_MESSAGES/veliberator.po veliberator/locale/veliberator.pot
 
 kwalitee:
 	@echo "$(COLOR)* Running pyflakes$(NO_COLOR)"
