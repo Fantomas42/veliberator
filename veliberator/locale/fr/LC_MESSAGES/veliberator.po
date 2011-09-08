@@ -1,0 +1,90 @@
+# French translations for PACKAGE package.
+# Copyright (C) 2011 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Fantomas <fantomas42@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: veliberator\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-08 14:35+0200\n"
+"PO-Revision-Date: 2011-09-08 14:40+0100\n"
+"Last-Translator: Fantomas <Fantomas42@gmail.com>\n"
+"Language-Team: Fantomas42 <fantomas42@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: veliberator/scripts/veliberator:18
+msgid "-> Online synchronization..."
+msgstr "-> Synchronisation en ligne..."
+
+#: veliberator/scripts/veliberator:20
+msgid "-> Synchronization complete !"
+msgstr "-> Synchronisation complète !"
+
+#: veliberator/scripts/veliberator:24
+#, python-format
+msgid "Station '%s'"
+msgstr "Station '%s'"
+
+#: veliberator/scripts/veliberator:26
+#, python-format
+msgid "%s (%.2fm)"
+msgstr "%s (%.2fm)"
+
+#: veliberator/scripts/veliberator:29
+#, python-format
+msgid "%s/%s velo(s) disponible"
+msgstr ""
+
+#: veliberator/scripts/veliberator:31
+#, python-format
+msgid "%s place(s) disponible"
+msgstr ""
+
+#: veliberator/scripts/veliberator:50
+msgid "The SQLURI of the database"
+msgstr "La SQLURI de la base de donnée"
+
+#: veliberator/scripts/veliberator:52
+msgid "The number of places you want"
+msgstr "Le nombre de places désirées"
+
+#: veliberator/scripts/veliberator:54
+msgid "The maximun stations around proposed"
+msgstr "Le maximum de stations aux alentours proposées"
+
+#: veliberator/scripts/veliberator:56
+msgid "Only do a synchronization of the cartography"
+msgstr "Seulement faire une synchronisation de la cartography"
+
+#: veliberator/scripts/veliberator:65
+#, python-format
+msgid "-> The database %s is unreachable."
+msgstr "-> La base de donnée %s est inaccessible."
+
+#: veliberator/scripts/veliberator:68
+msgid "-> The database is unreachable, switch on RAM."
+msgstr "-> La base de donnée est inaccessible, passage sur la RAM."
+
+#: veliberator/scripts/veliberator:69
+msgid "-> Edit the configuration file, for removing this message."
+msgstr "-> Éditez le fichier de configuration, pour enlever ce message."
+
+#: veliberator/scripts/veliberator:83
+msgid "Station ID or complete address:\n"
+msgstr "Identifiant de la station ou une adresse complète :\n"
+
+#: veliberator/scripts/veliberator:89
+msgid "Searching on the closest stations..."
+msgstr "Recherche sur les stations les plus proches..."
+
+#: veliberator/scripts/veliberator:96
+msgid "The provided address is not valid or imprecise."
+msgstr "L'adresse fournie n'est pas valide ou imprécise."
+

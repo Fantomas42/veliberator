@@ -15,20 +15,20 @@ from veliberator.models import StationInformation
 
 
 def synchronization():
-    print '-> Synchronisation en ligne...'
+    print _('-> Online synchronization...')
     Cartography.synchronize()
-    print '-> Synchronisation complete !'
+    print _('-> Synchronization complete !')
 
 
 def show_status(station, distance=None):
-    print "Station '%s'" % station.id
+    print _("Station '%s'") % station.id
     if distance:
-        print '%s (%.2fm)' % (station.informations.full_address, distance)
+        print _('%s (%.2fm)') % (station.informations.full_address, distance)
     else:
         print station.informations.full_address
-    print '%s/%s velo(s) disponible' % (station.status.available,
+    print _('%s/%s velo(s) disponible') % (station.status.available,
                                         station.status.total)
-    print '%s place(s) disponible' % station.status.free
+    print _('%s place(s) disponible') % station.status.free
 
 
 def display_free_stations(stations, places, max_display):
@@ -47,13 +47,13 @@ def display_free_stations(stations, places, max_display):
 if __name__ == '__main__':
     parser = OptionParser(usage='usage: %prog [station_id] [options]')
     parser.add_option('-d', '--database', dest='database',
-                      help='The SQLURI of the database', default=DATABASE_URI)
+                      help=_('The SQLURI of the database'), default=DATABASE_URI)
     parser.add_option('-p', '--places', dest='places', type='int',
-                      help='The number of places you want', default=1)
+                      help=_('The number of places you want'), default=1)
     parser.add_option('-m', '--max-stations', dest='max_stations', type='int',
-                      help='The maximun stations around proposed', default=5)
+                      help=_('The maximun stations around proposed'), default=5)
     parser.add_option('--synchronize', dest='synchronize', action='store_true',
-                      help='Only do a synchronization of the cartography')
+                      help=_('Only do a synchronization of the cartography'))
     (options, args) = parser.parse_args()
 
     print '-==* Veliberator v%s *==-' % veliberator.__version__
@@ -62,11 +62,12 @@ if __name__ == '__main__':
         db_connection(options.database)
     except sqlalchemy.exc.OperationalError:
         if options.synchronize:
-            sys.exit('-> Database %s innacessible.' % options.database)
+            sys.exit(_('-> The database %s is unreachable.') %
+                     options.database)
         else:
-            print '-> Database innacessible, switch sur la RAM.'
-            print '-> Modifiez le fichier de configuration, ' \
-                  'pour enlever ce message.'
+            print _('-> The database is unreachable, switch on RAM.')
+            print _('-> Edit the configuration file, '\
+                    'for removing this message.')
             db_connection('sqlite://')
 
     if options.synchronize:
@@ -79,20 +80,19 @@ if __name__ == '__main__':
     if args:
         user_input = args[0]
     else:
-        user_input = raw_input('Identifiant de la station, '\
-                               'ou adresse complete :\n')
+        user_input = raw_input(_('Station ID or complete address:\n'))
 
     if user_input.isdigit():
         station = Station(user_input)
         show_status(station)
         if not station.is_free(options.places):
-            print 'Calcul des places les plus proches...'
+            print _('Searching on the closest stations...')
             display_free_stations(station.stations_around,
                                   options.places, options.max_stations)
     else:
         try:
             finder = AddressGeoFinder(user_input)
         except GeoFinderError:
-            sys.exit('Votre addresse n\'est pas valide ou imprecise.')
+            sys.exit(_('The provided address is not valid or imprecise.'))
         display_free_stations(finder.get_stations_around(),
                               options.places, options.max_stations)
