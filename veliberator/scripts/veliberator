@@ -59,9 +59,29 @@ def display_free_stations(stations, places, max_display):
             show_status(station, station_information.distance)
             displayed += 1
 
+class VeliberatorOptionParser(OptionParser):
+    """Customized OptionParser with
+    correct gettext handling"""
+
+    def _add_help_option(self):
+        self.add_option('-h', '--help', action='help',
+                        help=_('Show this help message and exit'))
+
+    def _add_version_option(self):
+        self.add_option('--version', action='version',
+                        help=_("Show program's version number and exit"))
+
+    def print_help(self, file=None):
+        if file is None:
+            file = sys.stdout
+        encoding = self._get_encoding(file)
+        file.write(self.format_help())
+
 
 if __name__ == '__main__':
-    parser = OptionParser(usage='usage: %prog [station_id] [options]')
+    parser = VeliberatorOptionParser(
+        usage=_('%prog [station_id] [address] [options]'),
+        version='%s %s' % ('%prog', veliberator.__version__))
     parser.add_option('-d', '--database', dest='database',
                       help=_('The SQLURI of the database'),
                       default=DATABASE_URI)

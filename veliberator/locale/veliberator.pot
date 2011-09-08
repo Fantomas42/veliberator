@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-08 17:57+0200\n"
+"POT-Creation-Date: 2011-09-08 19:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,79 +17,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: veliberator/scripts/veliberator:26
+#: veliberator/scripts/veliberator:27
 msgid "-> Online synchronization..."
 msgstr ""
 
-#: veliberator/scripts/veliberator:28
+#: veliberator/scripts/veliberator:29
 msgid "-> Synchronization complete !"
 msgstr ""
 
-#: veliberator/scripts/veliberator:32
+#: veliberator/scripts/veliberator:33
 #, python-format
 msgid "Station '%s'"
 msgstr ""
 
-#: veliberator/scripts/veliberator:34
+#: veliberator/scripts/veliberator:35
 #, python-format
 msgid "%(address)s (%(distance).2fm)"
 msgstr ""
 
-#: veliberator/scripts/veliberator:40
+#: veliberator/scripts/veliberator:41
 #, python-format
 msgid "%(available)s/%(total)s bike available"
 msgid_plural "%(available)s/%(total)s bikes available"
 msgstr[0] ""
 msgstr[1] ""
 
-#: veliberator/scripts/veliberator:45
+#: veliberator/scripts/veliberator:46
 #, python-format
 msgid "%s parking place"
 msgid_plural "%s parking places"
 msgstr[0] ""
 msgstr[1] ""
 
-#: veliberator/scripts/veliberator:65
+#: veliberator/scripts/veliberator:68
+msgid "Show this help message and exit"
+msgstr ""
+
+#: veliberator/scripts/veliberator:72
+msgid "Show program's version number and exit"
+msgstr ""
+
+#: veliberator/scripts/veliberator:83
+msgid "%prog [station_id] [address] [options]"
+msgstr ""
+
+#: veliberator/scripts/veliberator:86
 msgid "The SQLURI of the database"
 msgstr ""
 
-#: veliberator/scripts/veliberator:68
+#: veliberator/scripts/veliberator:89
 msgid "The number of places you want"
 msgstr ""
 
-#: veliberator/scripts/veliberator:70
+#: veliberator/scripts/veliberator:91
 msgid "The maximun stations around proposed"
 msgstr ""
 
-#: veliberator/scripts/veliberator:73
+#: veliberator/scripts/veliberator:94
 msgid "Only do a synchronization of the cartography"
 msgstr ""
 
-#: veliberator/scripts/veliberator:82
+#: veliberator/scripts/veliberator:103
 #, python-format
 msgid "-> The database %s is unreachable."
 msgstr ""
 
-#: veliberator/scripts/veliberator:85
+#: veliberator/scripts/veliberator:106
 msgid "-> The database is unreachable, switch on RAM."
 msgstr ""
 
-#: veliberator/scripts/veliberator:86
+#: veliberator/scripts/veliberator:107
 msgid "-> Edit the configuration file, for removing this message."
 msgstr ""
 
-#: veliberator/scripts/veliberator:100
+#: veliberator/scripts/veliberator:121
 msgid "Station ID or complete address:\n"
 msgstr ""
 
-#: veliberator/scripts/veliberator:106
+#: veliberator/scripts/veliberator:127
 msgid "The Station ID does not exist."
 msgstr ""
 
-#: veliberator/scripts/veliberator:109
+#: veliberator/scripts/veliberator:130
 msgid "Searching on the closest stations..."
 msgstr ""
 
-#: veliberator/scripts/veliberator:116
+#: veliberator/scripts/veliberator:137
 msgid "The provided address is not valid or imprecise."
 msgstr ""
