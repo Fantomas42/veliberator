@@ -25,6 +25,8 @@ class UnknowStation(Exception):
 class Station(object):
     """Station object,
     combinating informations and status"""
+    almost_full = STATION_ALMOST_FULL
+    almost_empty = STATION_ALMOST_EMPTY
     around_radius = STATION_AROUND_RADIUS
 
     def __init__(self, velib_id):
@@ -89,9 +91,9 @@ class Station(object):
             return STATUS_BIKE_ONLY
         elif not available and free:
             return STATUS_PARKING_ONLY
-        elif STATION_ALMOST_FULL >= free:
+        elif self.almost_full >= free:
             return STATUS_ALMOST_FULL
-        elif STATION_ALMOST_EMPTY >= available:
+        elif self.almost_empty >= available:
             return STATUS_ALMOST_EMPTY
         elif self.is_bonus:
             return STATUS_BONUS
