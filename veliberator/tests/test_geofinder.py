@@ -6,7 +6,6 @@ from veliberator.geofinder import global_geofinder_cache
 from veliberator.geofinder import BaseGeoFinder
 from veliberator.geofinder import StationGeoFinder
 from veliberator.geofinder import AddressGeoFinder
-from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import pythagor_distance
 from veliberator.models import StationInformation
 from veliberator.cartography import Cartography
