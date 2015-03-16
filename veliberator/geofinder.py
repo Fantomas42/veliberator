@@ -24,7 +24,7 @@ def cache_wrapper(method):
         global global_geofinder_cache
 
         key_cache = (instance.lat, instance.lng, around_radius)
-        if not key_cache in global_geofinder_cache.keys():
+        if key_cache not in global_geofinder_cache.keys():
             global_geofinder_cache[key_cache] = method(instance, around_radius)
 
         return global_geofinder_cache[key_cache]
@@ -101,7 +101,7 @@ class BaseGeoFinder(object):
 
         stations_sorted_by_distance = sorted(station_distances.iteritems(),
                                              key=lambda (k, v): (v, k))
-        return [station for station, distance in stations_sorted_by_distance]
+        return [s for s, d in stations_sorted_by_distance]
 
     def get_stations_in_area(self, lats, lngs):
         """Make a query to find the station with

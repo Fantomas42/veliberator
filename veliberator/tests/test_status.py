@@ -32,7 +32,7 @@ class StationStatusTestCase(unittest.TestCase):
         data_compare = global_stationstatus_cache[self.velib_id].copy()
         status.get_status()
         self.assertEquals(status.status, data_compare)
-        global_stationstatus_cache[self.velib_id][\
+        global_stationstatus_cache[self.velib_id][
             'datetime'] = datetime.now() - timedelta(
             minutes=STATION_STATUS_RECENT + 5)
         status.get_status()
