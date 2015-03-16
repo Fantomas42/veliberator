@@ -23,7 +23,7 @@ class GrabberTestCase(unittest.TestCase):
         self.assertNotEquals(grabber.data, None)
         self.assertNotEquals(grabber.page, None)
         self.assertEquals(grabber.data, content)
-        #Normaly does not reload the page when reaccessing to content
+        # Normaly does not reload the page when reaccessing to content
         self.assertEquals(grabber.content, content)
         self.assertEquals(grabber.page, page)
 

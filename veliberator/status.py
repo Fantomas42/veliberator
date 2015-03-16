@@ -20,9 +20,9 @@ def cache_wrapper(method):
         global global_stationstatus_cache
 
         key_cache = instance.velib_id
-        if not key_cache in global_stationstatus_cache or \
-               global_stationstatus_cache[key_cache]['datetime'] + \
-               timedelta(minutes=STATION_STATUS_RECENT) < datetime.now():
+        if (key_cache not in global_stationstatus_cache or
+            global_stationstatus_cache[key_cache]['datetime'] +
+                timedelta(minutes=STATION_STATUS_RECENT) < datetime.now()):
             global_stationstatus_cache[key_cache] = method(instance)
         instance.status = global_stationstatus_cache[key_cache]
         return instance.status

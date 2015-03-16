@@ -24,7 +24,7 @@ def cache_wrapper(method):
         global global_geofinder_cache
 
         key_cache = (instance.lat, instance.lng, around_radius)
-        if not key_cache in global_geofinder_cache.keys():
+        if key_cache not in global_geofinder_cache.keys():
             global_geofinder_cache[key_cache] = method(instance, around_radius)
 
         return global_geofinder_cache[key_cache]
@@ -101,7 +101,7 @@ class BaseGeoFinder(object):
 
         stations_sorted_by_distance = sorted(station_distances.iteritems(),
                                              key=lambda (k, v): (v, k))
-        return [station for station, distance in stations_sorted_by_distance]
+        return [s for s, d in stations_sorted_by_distance]
 
     def get_stations_in_area(self, lats, lngs):
         """Make a query to find the station with
@@ -138,22 +138,18 @@ class AddressGeoFinder(BaseGeoFinder):
         self.address = address
         informations = self.geocompute(address)
 
-        self.lat = informations['Point']['coordinates'][1]
-        self.lng = informations['Point']['coordinates'][0]
-        self.precision = informations['AddressDetails']['Accuracy']
-        self.clean_address = informations['address']
-
-        if self.precision <= 6:
-            raise GeoFinderError('Your address is not available.')
+        self.lat = informations['geometry']['location']['lat']
+        self.lng = informations['geometry']['location']['lng']
+        self.precision = informations['types'][0]
+        self.clean_address = informations['formatted_address']
 
     def geocompute(self, address):
         """Geocompute an address with GMap"""
         address = quote_plus(address)
-        request = 'http://maps.google.com/maps/geo' \
-                  '?sensor=false&q=%s&output=%s&oe=utf8&gl=fr' % \
-                  (address, 'json')
+        request = 'https://maps.googleapis.com/maps/api/geocode/json' \
+                  '?address=%s&region=fr' % address
         data = json.loads(urlopen(request).read())
 
-        if data['Status']['code'] != 200:
-            raise GeoFinderError('Service unavailable')
-        return data['Placemark'][0]
+        if data['status'] != 'OK':
+            raise GeoFinderError('Geocoding service error')
+        return data['results'][0]

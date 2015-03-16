@@ -6,7 +6,6 @@ from veliberator.geofinder import global_geofinder_cache
 from veliberator.geofinder import BaseGeoFinder
 from veliberator.geofinder import StationGeoFinder
 from veliberator.geofinder import AddressGeoFinder
-from veliberator.geofinder import GeoFinderError
 from veliberator.geofinder import pythagor_distance
 from veliberator.models import StationInformation
 from veliberator.cartography import Cartography
@@ -113,17 +112,14 @@ class AddressGeoFinderTestCase(unittest.TestCase):
     def test_Init(self):
         address = '1 place de la Bastille, 75012 Paris'
         geofinder = AddressGeoFinder(address)
-        self.assertEquals(geofinder.precision, 8)
-        self.assertEquals(geofinder.lat, 48.853142800000001)
-        self.assertEquals(geofinder.lng, 2.3686823000000001)
-
-        address = 'Bethune, 62400'
-        self.assertRaises(GeoFinderError, AddressGeoFinder, address)
+        self.assertEquals(geofinder.precision, 'street_address')
+        self.assertEquals(geofinder.lat, 48.8530318)
+        self.assertEquals(geofinder.lng, 2.3687204)
 
     def test_GeoCompute(self):
         address = '1 place de la Bastille, 75012 Paris'
         geofinder = AddressGeoFinder(address)
-        self.assertEquals(len(geofinder.geocompute(address)), 5)
+        self.assertEquals(len(geofinder.geocompute(address)), 6)
 
 
 suite = unittest.TestSuite([

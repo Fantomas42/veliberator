@@ -12,7 +12,7 @@ not mandatory but handy.
 Follow these steps to start the development : ::
 
   $ git clone git://github.com/Fantomas42/veliberator.git
-  $ virtualenv --no-site-packages veliberator
+  $ virtualenv veliberator
   $ cd veliberator
   $ source ./bin/activate
   $ python bootstrap.py
@@ -29,8 +29,7 @@ Run this command to launch the test suite. ::
 
 Execute these commands to check the code conventions. ::
 
-  $ ./bin/pyflakes zinnia
-  $ ./bin/pep8 --count -r veliberator
+  $ ./bin/flake8 zinnia
 
 And for building the HTML documentation run this. ::
 

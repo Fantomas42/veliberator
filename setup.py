@@ -15,13 +15,12 @@ setup(
     author_email=veliberator.__email__,
     url=veliberator.__url__,
 
-    description="Veliberator provides a Python API for getting informations" \
-    " about the stations of the Velib' network.",
+    description="Veliberator provides a Python API for getting informations "
+    "about the stations of the Velib' network.",
     long_description=open(os.path.join('README.rst')).read(),
     keywords='velib, api, service',
 
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -29,7 +28,11 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
         ],
 
-    scripts=['./veliberator/scripts/veliberator'],
+    entry_points={
+        'console_scripts': [
+            'veliberator=veliberator.scripts.command_line:cmdline',
+            ]
+    },
     test_suite='veliberator.tests.global_test_suite',
     packages=find_packages(exclude=['tests']),
 
@@ -37,7 +40,7 @@ setup(
     platforms='any',
     include_package_data=True,
 
-    install_requires=['SQLAlchemy>=0.7.2',
-                      'Elixir>=0.7.1',
-                      'simplejson>=2.1.6'],
-    )
+    install_requires=['SQLAlchemy==0.7.10',
+                      'Elixir==0.7.1',
+                      'simplejson'],
+)
