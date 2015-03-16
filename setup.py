@@ -21,7 +21,6 @@ setup(
     keywords='velib, api, service',
 
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -29,7 +28,11 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
         ],
 
-    scripts=['./veliberator/scripts/veliberator'],
+    entry_points={
+        'console_scripts': [
+            'veliberator=veliberator.scripts.command_line:cmdline',
+            ]
+    },
     test_suite='veliberator.tests.global_test_suite',
     packages=find_packages(exclude=['tests']),
 

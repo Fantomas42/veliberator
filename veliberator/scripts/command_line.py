@@ -1,10 +1,13 @@
-#!/usr/bin/python
+"""
+Veliberator script
+"""
 import os
 import sys
 import gettext
 from optparse import OptionParser
 
 import sqlalchemy
+
 
 import veliberator
 from veliberator.station import Station
@@ -78,7 +81,7 @@ class VeliberatorOptionParser(OptionParser):
         file.write(self.format_help())
 
 
-if __name__ == '__main__':
+def cmdline():
     parser = VeliberatorOptionParser(
         usage=_('%prog [station_id] [address] [options]'),
         version='%s %s' % ('%prog', veliberator.__version__))
