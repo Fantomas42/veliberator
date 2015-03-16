@@ -17,7 +17,6 @@ test:
 	@echo "$(COLOR)* Launching the tests suite$(NO_COLOR)"
 	@./bin/test
 
-
 docs:
 	@echo "$(COLOR)* Generating Sphinx documentation$(NO_COLOR)"
 	@./bin/docs
@@ -30,13 +29,10 @@ translations:
 
 kwalitee:
 	@echo "$(COLOR)* Running pyflakes$(NO_COLOR)"
-	@./bin/pyflakes veliberator
-	@echo "$(COLOR)* Running pep8$(NO_COLOR)"
-	@./bin/pep8 --count -r veliberator
+	@./bin/flake8 veliberator
 	@echo "$(SUCCESS_COLOR)* No kwalitee errors, Congratulations ! :)$(NO_COLOR)"
 
 clean:
 	@echo "$(COLOR)* Removing useless files$(NO_COLOR)"
 	@find veliberator docs -type f \( -name "*.pyc" -o -name "\#*" -o -name "*~" \) -exec rm -f {} \;
 	@rm -f \#* *~
-	@rm -rf .tox
