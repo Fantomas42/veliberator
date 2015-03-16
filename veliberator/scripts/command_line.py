@@ -8,7 +8,6 @@ from optparse import OptionParser
 
 import sqlalchemy
 
-
 import veliberator
 from veliberator.station import Station
 from veliberator.station import UnknowStation
@@ -21,9 +20,11 @@ from veliberator.geofinder import AddressGeoFinder
 from veliberator.models import StationInformation
 
 
-gettext.install('veliberator', os.path.join(
-    os.path.dirname(veliberator.__file__), 'locale'),
-                names='ngettext')
+translation = gettext.translation(
+    'veliberator',
+    os.path.join(os.path.dirname(veliberator.__file__), 'locale'))
+_ = translation.gettext
+__ = translation.ngettext
 
 
 def synchronization():
@@ -41,13 +42,13 @@ def show_status(station, distance=None):
     else:
         print station.informations.full_address
 
-    print ngettext('%(available)s/%(total)s bike available',
-                   '%(available)s/%(total)s bikes available',
-                   station.status.available) % {
+    print __('%(available)s/%(total)s bike available',
+             '%(available)s/%(total)s bikes available',
+             station.status.available) % {
         'available': station.status.available,
         'total': station.status.total}
-    print ngettext('%s parking place', '%s parking places',
-                   station.status.free) % station.status.free
+    print __('%s parking place', '%s parking places',
+             station.status.free) % station.status.free
 
 
 def display_free_stations(stations, places, max_display):
@@ -61,6 +62,7 @@ def display_free_stations(stations, places, max_display):
             print '----------'
             show_status(station, station_information.distance)
             displayed += 1
+
 
 class VeliberatorOptionParser(OptionParser):
     """Customized OptionParser with
@@ -77,7 +79,6 @@ class VeliberatorOptionParser(OptionParser):
     def print_help(self, file=None):
         if file is None:
             file = sys.stdout
-        encoding = self._get_encoding(file)
         file.write(self.format_help())
 
 
@@ -107,7 +108,7 @@ def cmdline():
                      options.database)
         else:
             print _('-> The database is unreachable, switch on RAM.')
-            print _('-> Edit the configuration file, '\
+            print _('-> Edit the configuration file, '
                     'for removing this message.')
             db_connection('sqlite://')
 
@@ -138,5 +139,6 @@ def cmdline():
             finder = AddressGeoFinder(user_input)
         except GeoFinderError:
             sys.exit(_('The provided address is not valid or imprecise.'))
-        display_free_stations(finder.get_stations_around(STATION_AROUND_RADIUS),
-                              options.places, options.max_stations)
+        display_free_stations(
+            finder.get_stations_around(STATION_AROUND_RADIUS),
+            options.places, options.max_stations)
