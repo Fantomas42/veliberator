@@ -101,5 +101,6 @@ class Station(object):
 
     def __repr__(self):
         if self.informations:
-            return '<Station "%s" (%s)>' % (self.id, self.informations.address)
+            return '<Station "%s" (%s)>' % (
+                self.id, self.informations.full_address)
         return '<Station "%s">' % self.id

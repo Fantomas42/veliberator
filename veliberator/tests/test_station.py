@@ -19,6 +19,8 @@ class StationTestCase(unittest.TestCase):
         self.velib_id = 42008
         self.informations = StationInformation(id=self.velib_id,
                                                address='Test',
+                                               postal_code='555',
+                                               city='CityLand',
                                                bonus=True, opened=True)
 
     def tearDown(self):
@@ -92,7 +94,8 @@ class StationTestCase(unittest.TestCase):
 
     def test_repr(self):
         station = Station(self.velib_id)
-        self.assertEquals(repr(station), '<Station "42008" (Test)>')
+        self.assertEquals(repr(station),
+                          '<Station "42008" (Test, 555 CityLand)>')
         station.informations = None
         self.assertEquals(repr(station), '<Station "42008">')
 
